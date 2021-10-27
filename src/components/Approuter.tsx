@@ -1,0 +1,15 @@
+import { Route, Switch, Redirect } from 'react-router-dom';
+import { routes } from '../router/index';
+
+
+export default function AppRouter() {
+   
+    return  <Switch>
+                {
+                    routes.map(({path, Component}:any)=>{
+                        return <Route path={path} component={Component} exact={true}/>
+                    }) 
+                }
+            </Switch>
+}
+
