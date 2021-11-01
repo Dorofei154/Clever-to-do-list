@@ -1,8 +1,9 @@
 import React, { useState, useCallback, useEffect} from "react";
 import { addTodo, getTodo, useAuth, deleteTodo } from "../../firebase";
 import AdedToDo from "../Addedtodo/Addedtodo";
-import { Calendar, Badge } from 'antd';
+import { Calendar, Badge, Alert } from 'antd';
 import { type } from "os";
+import moment from 'moment';
 
 
 
@@ -11,7 +12,10 @@ import { type } from "os";
 export const Todo: React.FC<{arrTodoValue:any}> = ({arrTodoValue = []}) =>{
   const [newTodo, setnewTodo] = useState("");
   const [newDate, setnewDate] = useState("");
-  const [filter, setFilter] = useState("");
+  const [month, setMonth] = useState("");
+  const [date, setDate] = useState('')
+  const [value, setValue] = useState(moment(new Date()))
+  const [valueAlert, setvaluealert] = useState(moment(new Date()))
   const [arrtodo1, setArrtodo1] = useState([])
   const currentUser:any = useAuth();
   useEffect(() => {
@@ -19,6 +23,21 @@ export const Todo: React.FC<{arrTodoValue:any}> = ({arrTodoValue = []}) =>{
       getTodo(currentUser.email, arrtodo1, setArrtodo1);
     }
   }, [currentUser, arrtodo1])
+
+
+  const onSelect = (value:any) => {
+    setMonth(value.month());
+    setDate(value.date())
+    setValue(value)
+    setvaluealert(value);
+  };
+
+  const onPanelChange = (value:any) => {
+    
+    setvaluealert( value );
+  };
+
+
   const handleDelete = useCallback(
     (e) => {
       
@@ -96,16 +115,14 @@ export const Todo: React.FC<{arrTodoValue:any}> = ({arrTodoValue = []}) =>{
     ) : null;
   }
 
-  const filterActive = (filter:any) => {
-    return setFilter(filter);
-  };
+ 
   const changeInput = (e:any) => {
     e.target.id === 'inToDo' ? setnewTodo(e.target.value) : setnewDate(e.target.value)
   };
 
   return (
     <div className="wrap">
-    <Calendar dateCellRender={dateCellRender} monthCellRender={monthCellRender}  />
+    <Calendar dateCellRender={dateCellRender} monthCellRender={monthCellRender} value={value} onSelect={onSelect} onPanelChange={onPanelChange} />
       <section className="todoapp">
         <input
           type="text"
@@ -126,12 +143,9 @@ export const Todo: React.FC<{arrTodoValue:any}> = ({arrTodoValue = []}) =>{
 
         <ul className="list-todo">
           {arrtodo1
-            // .filter((item:any) => {
-            //   if (filter !== "") {
-            //     return item.checked === filter;
-            //   }
-            //   return item;
-            // })
+            .filter((item:any) => {
+             return item.data.date === date && item.data.month === month
+            })
             .map((item:any, index:any) =>
             {
             return (
