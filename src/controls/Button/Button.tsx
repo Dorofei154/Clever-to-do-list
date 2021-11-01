@@ -1,7 +1,8 @@
-export default function Button(props:any) {
+import { Props } from './Button.interfaces';
+export const Button:  React.FC<Props> = ({disabled, currentUser, text, handle}) => {
     return (
-        <button disabled={props.disabled || props.currentUser} onClick={props.handle}>
-            {props.text}
+        <button disabled={disabled || currentUser} onClick={handle}>
+            {text}
         </button>
     )
 }

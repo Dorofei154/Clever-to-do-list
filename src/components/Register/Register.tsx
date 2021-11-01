@@ -1,42 +1,30 @@
 import React, {  useRef, useState } from 'react'
 import { Link } from 'react-router-dom';
-import Button from '../../controls/Button/Button';
+import {Button} from '../../controls/Button/Button';
 import {Input} from '../../controls/Input/Input'
-import { signup, login, useAuth, logout } from '../../firebase';
-import { LOGIN_ROUTE } from '../../constants/actions';
+import { signup, useAuth, logout } from '../../firebase';
+import { LOGIN_ROUTE } from '../../constants/constants';
 
 
 export default function Register(props:any) {
     const [loading, setLoading] = useState(false);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('')
     const currentUser = useAuth();
-    const emailRef = useRef();
-    const passwordRef = useRef();
     
-    async function handleSignUp(e:any){
+    const changeInput = (e:any) => {
+        console.log(e)
+        e.target.name === 'email' ? 
+        setEmail(e.target.value) :
+        setPassword(e.target.value)
+    }
+
+    
+    const handleRegistration = async (e:any) =>{
         setLoading(true);
         e.preventDefault();
         try {
-            // await signup(emailRef.current.value, passwordRef.current.value )
-        } catch {
-            alert('Account is already register')
-        }
-        setLoading(false)
-    }
-    async function handleLogout(e:any){
-        setLoading(true);
-        e.preventDefault();
-        try{
-        await logout();
-        }catch{
-            alert('Logout is not available')
-        }
-        setLoading(false)
-    }
-    async function handleLogin(e:any){
-        setLoading(true);
-        e.preventDefault();
-        try {
-            // await login(emailRef.current.value, passwordRef.current.value )
+                await signup(email , password)
         } catch(e) {
             alert('Invalid data')
         }
@@ -46,13 +34,13 @@ export default function Register(props:any) {
         <div className='wrap'>
             <div className="wrapblock">
                 <h1>Registration</h1>
-                {/* <p>{currentUser?.email}</p> */}
+                <p>{currentUser?.['email']}</p>
                 <form>
-                    <Input ref={emailRef} className="input" text='login' name='text' />
-                    <Input ref={passwordRef} className="input" text='password' name='password'/>
+                    <Input  value={email} changeInput={changeInput} className="input" text='login' name='email' />
+                    <Input  value={password} changeInput={changeInput} className="input" text='password' name='password' />
                     <Link to={LOGIN_ROUTE} >Login</Link>
                     <div>
-                    <Button disabled={loading} currentUser={currentUser} handle={handleSignUp} text="Registration" />
+                    <Button disabled={false} currentUser={currentUser} handle={handleRegistration} text="Registration" />
                     
                     </div>
                 </form>
