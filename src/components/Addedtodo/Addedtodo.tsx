@@ -2,7 +2,7 @@ import React from "react";
 
 export default function AddedToDo(props:any) {
   const {
-    item: { index, value, checked },
+    item: { index, data, checked },
     handleCheck,
     handleDelete,
   } = props;
@@ -10,14 +10,15 @@ export default function AddedToDo(props:any) {
     <div className="added-todo">
       <input
         onClick={() => handleCheck(index)}
-        id={`check${index}`}
+        id={index}
         type="checkbox"
       />
       <div className={checked ? "checkedMark" : "mark"}>
         {checked ? "✓" : ""}
       </div>
       <label  className={checked ? "checkedText" : "Text"}>
-        {value}
+        {data.res} !!!!
+        {index}
       </label>
       <span onClick={() => handleDelete(index)} className="cross">
         &#x2716;

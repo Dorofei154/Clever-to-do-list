@@ -2,7 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signOut, signInWithEmailAndPassword } from 'firebase/auth'
 import { useEffect, useState } from "react";
-import { getFirestore, collection, setDoc,  doc, getDocs } from "firebase/firestore"
+import { getFirestore, collection, setDoc,  doc, getDocs, deleteDoc } from "firebase/firestore"
 
 
 
@@ -11,12 +11,12 @@ import { getFirestore, collection, setDoc,  doc, getDocs } from "firebase/firest
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCI6MezVMUr-iHEIpCJgGLPz7BdZ-Cwezs",
-  authDomain: "tods-5806c.firebaseapp.com",
-  projectId: "tods-5806c",
-  storageBucket: "tods-5806c.appspot.com",
-  messagingSenderId: "275074014613",
-  appId: "1:275074014613:web:cf5defa5970090a2556a9c"
+  apiKey: "AIzaSyAlUPAIInl5St5K3LJb6iP-CaMOqls2SA8",
+  authDomain: "todos-c7419.firebaseapp.com",
+  projectId: "todos-c7419",
+  storageBucket: "todos-c7419.appspot.com",
+  messagingSenderId: "1086643426861",
+  appId: "1:1086643426861:web:25954a896ae20144e74aa4"
 };
 
 
@@ -24,10 +24,18 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore();
 export const auth = getAuth(app);
 
+
+
+export async function deleteTodo(e:any, email:any){
+  console.log(email, e)
+  return deleteDoc(doc(db, email, e));
+}
+
+
 export async function addTodo(e:any, email:any, date: any, setArrtodo1:any, arrPush:any){
   const res = e.target.value;
   const dateRes = new Date(date);
-  
+  console.log(db, email)
   await setDoc(doc(db, email, String(Date.now())), {
     res,
     month: dateRes.getMonth(),
@@ -42,8 +50,7 @@ export async function addTodo(e:any, email:any, date: any, setArrtodo1:any, arrP
      })
    });  
    setArrtodo1(arr)
-
-  return arrPush;
+  return arrPush
 }
 
 export async function getTodo(email:any, arrPush:any, setArrtodo1:any){

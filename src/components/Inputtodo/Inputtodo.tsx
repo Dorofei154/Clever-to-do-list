@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect} from "react";
-import { addTodo, getTodo, useAuth } from "../../firebase";
+import { addTodo, getTodo, useAuth, deleteTodo } from "../../firebase";
 import AdedToDo from "../Addedtodo/Addedtodo";
 import { Calendar, Badge } from 'antd';
 import { type } from "os";
@@ -9,7 +9,6 @@ import { type } from "os";
 
 
 export const Todo: React.FC<{arrTodoValue:any}> = ({arrTodoValue = []}) =>{
-  const [arrTodo, setArrtodo] = useState(arrTodoValue);
   const [newTodo, setnewTodo] = useState("");
   const [newDate, setnewDate] = useState("");
   const [filter, setFilter] = useState("");
@@ -20,12 +19,14 @@ export const Todo: React.FC<{arrTodoValue:any}> = ({arrTodoValue = []}) =>{
       getTodo(currentUser.email, arrtodo1, setArrtodo1);
     }
   }, [currentUser, arrtodo1])
-  // const handleDelete = useCallback(
-  //   (id) => {
-  //     return setArrtodo(arrTodo.filter((item:any) => item.index !== id));
-  //   },
-  //   [arrTodo]
-  // );
+  const handleDelete = useCallback(
+    (e) => {
+      
+      deleteTodo(e, currentUser.email)
+    
+    },
+    [arrtodo1]
+  );
   // const handleCheck = useCallback(
   //   (id) => {
   //     return setArrtodo(
@@ -41,20 +42,11 @@ export const Todo: React.FC<{arrTodoValue:any}> = ({arrTodoValue = []}) =>{
   // );
   
   const pressEnter = async (e:any) => {
-    console.log(e.target.value)
     if (
       (e.code === "Enter" || e.code === "NumpadEnter") &&
       e.target.value !== "" && e.target.id === "inToDo"
     ) {
       addTodo(e, currentUser ? currentUser['email'] : null, newDate, setArrtodo1, arrtodo1 )
-      setArrtodo([
-        ...arrTodo,
-        {
-          value: newTodo,
-          checked: false,
-          index: Date.now(),
-        },
-      ]);
       setnewTodo("");
     }
   };
@@ -133,21 +125,23 @@ export const Todo: React.FC<{arrTodoValue:any}> = ({arrTodoValue = []}) =>{
         />
 
         <ul className="list-todo">
-          {arrTodo
-            .filter((item:any) => {
-              if (filter !== "") {
-                return item.checked === filter;
-              }
-              return item;
-            })
-            .map((item:any, index:any) => (
+          {arrtodo1
+            // .filter((item:any) => {
+            //   if (filter !== "") {
+            //     return item.checked === filter;
+            //   }
+            //   return item;
+            // })
+            .map((item:any, index:any) =>
+            {
+            return (
               <AdedToDo
-                // handleDelete={handleDelete}
+                handleDelete={handleDelete}
                 // handleCheck={handleCheck}
                 item={item}
                 key={index}
               />
-            ))}
+            )})}
         </ul>
       </section>
     </div>
