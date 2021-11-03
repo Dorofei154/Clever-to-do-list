@@ -16,7 +16,7 @@ const TodoComponent = ({
   date,
   month,
   handleDelete,
-  newtodoroute,
+  newTodoRoute,
   handleLogout,
 }: {
   [key: string]: any;
@@ -41,7 +41,7 @@ const TodoComponent = ({
                 return (
                   <AddedToDo
                     handleDelete={handleDelete}
-                    handleChange={newtodoroute}
+                    handleChange={newTodoRoute}
                     item={item}
                     key={index}
                   />

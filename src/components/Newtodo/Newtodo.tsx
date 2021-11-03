@@ -19,13 +19,12 @@ export const Newtodo = (props:any) =>{
         setnewDate(dateString)
       }
       const changeInput = (e:any) => {
-        console.log()
         e.target.id === 'inToDo' ? setnewTodo(e.target.value) :  setnewheaeder(e.target.value)
       };
       const Addtodo = (e:any) => {
 
         history.push(ROUTES.TODO_ROUTE)
-        addTodo(newTodo, currentUser['email'] , newDate, newHeader, changeInfo ?  changeInfo[0]['index'] : null)
+        addTodo(newTodo, currentUser['email'] , newDate, newHeader, changeInfo ?  changeInfo[0]['index'] : String(Date.now()))
       };
 
       const onFinish = (values:any) => {

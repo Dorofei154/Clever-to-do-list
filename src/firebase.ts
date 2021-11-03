@@ -32,9 +32,10 @@ const deleteTodo = async (e:any, email:any) =>{
 }
 
 
-const addTodo = async (text:any, email:any, date: any, header: any, dateTodo:any) => {
+const addTodo = async (text:string, email:string, date: any, header: string, index:any ) => {
+  
   const dateRes = new Date(date);
-  await setDoc(doc(db, email, String(Date.now())), {
+  await setDoc(doc(db, email, index), {
     header,
     res: text,
     month: dateRes.getMonth(),
@@ -42,7 +43,7 @@ const addTodo = async (text:any, email:any, date: any, header: any, dateTodo:any
   });
 }
 
-const getTodo = async (email:any) => {
+const getTodo = async (email:string) => {
   const querySnapshot:any = await getDocs(collection(db, email));
   const arr: { index: string; data: { id: string; text: string } }[] = [];
   querySnapshot.forEach((doc:any) => {
@@ -54,10 +55,10 @@ const getTodo = async (email:any) => {
    return arr
 }
 
-const signup = (email:any, password:any) =>{
+const signup = (email:string, password:string) =>{
     return createUserWithEmailAndPassword(auth, email, password);
 }
-const login = async (email:any, password:any) => {
+const login = async (email:string, password:string) => {
     return signInWithEmailAndPassword(auth, email, password);
 }
 const logout = () =>{
