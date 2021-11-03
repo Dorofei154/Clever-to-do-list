@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 
-import { EnterForm } from "../../../controls/Form/Form";
+import { EnterForm } from "../../../controls/Form/EnterForm";
 import { S } from "./Login.styles";
 
 const LoginComponent = ({

@@ -1,24 +1,30 @@
 
-import {  Form, Input, Button } from 'antd';
+import {  Form, Input } from 'antd';
 
 
-const FormInput = (props:any) => { 
+const FormInput = ({
+  value,
+  type,
+  changeInput
+}: {
+  [key: string]: any;
+}) => { 
      
     return (
         <Form.Item
-          label={`Enter ${props.type === 'email' ? 'email': 'password'}`}
+          label={`Enter ${type === 'email' ? 'email': 'password'}`}
           name="header"
           rules={[
             {
               required: true,
-              message: 'Please enter login!',
+              message: `Please enter ${type === 'email' ? 'email': 'password'}!`,
             },
           ]}
         >
           <Input 
-           id="login" 
-           defaultValue={props.value}
-           value={props.value} onChange={props.changeInput}  type={props.type}/>
+           id={type} 
+           defaultValue={value}
+           value={value}  onChange={changeInput}  type={type}/>
         </Form.Item>
     )
 }

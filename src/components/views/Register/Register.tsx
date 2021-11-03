@@ -2,7 +2,7 @@ import React, { memo } from "react";
 import { S } from "./Register.styles";
 
 
-import { EnterForm } from "../../../controls/Form/Form";
+import { EnterForm } from "../../../controls/Form/EnterForm";
 
 
 const RegisterComponent = ({
