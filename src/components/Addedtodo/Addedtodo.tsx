@@ -1,22 +1,21 @@
 import React from "react";
-import {S} from './Added.styles'
+import { S } from "./Added.styles";
 
-
-export default function AddedToDo(props:any) {
-  const {
-    item: { index, data, checked },
-    handleCheck,
-    handleDelete,
-    handleChange
-  } = props;
+const AddedToDo = ({
+  item: { index, data },
+  handleDelete,
+  handleChange,
+}: {
+  [key: string]: any;
+}) => {
   return (
-    <div className="added-todo">
-      <S.Label  id={index} onClick={handleChange}  className={checked ? "checkedText" : "Text"}>
-        {data.header} 
+    <S.Div>
+      <S.Label id={index} onClick={handleChange}>
+        {data.header}
       </S.Label>
-      <span onClick={() => handleDelete(index)} className="cross">
-        &#x2716;
-      </span>
-    </div>
+      <S.Span onClick={() => handleDelete(index)}>&#x2716;</S.Span>
+    </S.Div>
   );
-}
+};
+
+export { AddedToDo };

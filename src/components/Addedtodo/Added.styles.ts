@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const S = {
   Container: styled.div`
@@ -7,11 +7,15 @@ export const S = {
     justify-content: center;
     width: 100vw;
     height: 100vh;
-`, 
-    Label: styled.label`
+  `,
+  Label: styled.label`
     margin-right: 10px;
-    &:hover{
+    &:hover {
       cursor: pointer;
     }
-`
+  `,
+  Span: styled.span``,
+  Div: styled.div`
+    padding: 10px 20px;
+  `,
 };
