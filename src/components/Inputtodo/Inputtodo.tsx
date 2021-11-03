@@ -1,21 +1,23 @@
 import React, { useState, useCallback, useEffect} from "react";
-import { addTodo, getTodo, useAuth, deleteTodo } from "../../firebase";
+import { getTodo, useAuth, deleteTodo, logout } from "../../firebase";
+import {  useHistory  } from 'react-router-dom';
 import AdedToDo from "../Addedtodo/Addedtodo";
-import { Calendar, Badge, Alert } from 'antd';
-import { type } from "os";
+import { Calendar, Badge, Button } from 'antd';
+import {S} from './Inputtodo.styles'
+import { Link } from 'react-router-dom';
 import moment from 'moment';
+import { ROUTES } from "../../constants/constants";
 
 
 
 
-
-export const Todo: React.FC<{arrTodoValue:any}> = ({arrTodoValue = []}) =>{
-  const [newTodo, setnewTodo] = useState("");
-  const [newDate, setnewDate] = useState("");
+ const Todo = () =>{
+  
+  const history = useHistory()
   const [month, setMonth] = useState("");
   const [date, setDate] = useState('')
   const [value, setValue] = useState(moment(new Date()))
-  const [valueAlert, setvaluealert] = useState(moment(new Date()))
+ 
   const [arrtodo1, setArrtodo1] = useState([])
   const currentUser:any = useAuth();
   useEffect(() => {
@@ -29,13 +31,10 @@ export const Todo: React.FC<{arrTodoValue:any}> = ({arrTodoValue = []}) =>{
     setMonth(value.month());
     setDate(value.date())
     setValue(value)
-    setvaluealert(value);
+
   };
 
-  const onPanelChange = (value:any) => {
-    
-    setvaluealert( value );
-  };
+
 
 
   const handleDelete = useCallback(
@@ -46,37 +45,15 @@ export const Todo: React.FC<{arrTodoValue:any}> = ({arrTodoValue = []}) =>{
     },
     [arrtodo1]
   );
-  // const handleCheck = useCallback(
-  //   (id) => {
-  //     return setArrtodo(
-  //       arrTodo.map((item:any) => {
-  //         if (item.index === id) {
-  //           return { ...item, checked: !item.checked };
-  //         }
-  //         return item;
-  //       })
-  //     );
-  //   },
-  //   [arrTodo]
-  // );
-  
-  const pressEnter = async (e:any) => {
-    if (
-      (e.code === "Enter" || e.code === "NumpadEnter") &&
-      e.target.value !== "" && e.target.id === "inToDo"
-    ) {
-      addTodo(e, currentUser ? currentUser['email'] : null, newDate, setArrtodo1, arrtodo1 )
-      setnewTodo("");
-    }
-  };
 
-   function getListData(value:any) {
+ 
+   const getListData = (value:moment.Moment) =>{
     let listData = arrtodo1;
     let listDatares:any = [];
     listData.forEach((item:any) => {
       if(value.date() === item.data.date && value.month() === item.data.month){
         listDatares.push({
-          content: item.data.res,
+          content: item.data.header,
           id: item.id
         })
       }
@@ -84,28 +61,28 @@ export const Todo: React.FC<{arrTodoValue:any}> = ({arrTodoValue = []}) =>{
     return listDatares || [];
   }
 
-  const dateCellRender =  (value:any) => {
+  const dateCellRender =  (value:moment.Moment) => {
     const listData:any = getListData(value);
     return (
       <ul>
         {listData.map((item:any) => {
           
         return (
-          <li key={item.id}>
+          <S.List key={item.id}>
             <Badge status='warning' text={item.content} />
-          </li>
+          </S.List>
         )})}
       </ul>
     );
   }
  
-  function getMonthData(value:any) {
+  const getMonthData = (value:moment.Moment) =>{
     if (value.month() === 8) {
       return 1394;
     }
   }
 
-  function monthCellRender(value:any) {
+  const monthCellRender =(value:moment.Moment) =>{
     const num = getMonthData(value);
     return num ? (
       <div className="notes-month">
@@ -115,32 +92,37 @@ export const Todo: React.FC<{arrTodoValue:any}> = ({arrTodoValue = []}) =>{
     ) : null;
   }
 
- 
-  const changeInput = (e:any) => {
-    e.target.id === 'inToDo' ? setnewTodo(e.target.value) : setnewDate(e.target.value)
-  };
+ const newtodoroute = (e:{ target: HTMLInputElement; }) => {
+   
+   const res = arrtodo1.filter((item:any) => {
+     return item.index === e.target.id
+   })
+    history.push(  
+      ROUTES.NEWTODO_ROUTE, 
+        res
+    )
+ }
+ const handleLogout = async (e:React.MouseEvent<HTMLElement, MouseEvent>) => {
+
+  e.preventDefault();
+  try{
+    await logout();
+    history.push(ROUTES.LOGIN_ROUTE)
+  }catch{
+      alert('Logout is not available')
+  }
+
+}
 
   return (
-    <div className="wrap">
-    <Calendar dateCellRender={dateCellRender} monthCellRender={monthCellRender} value={value} onSelect={onSelect} onPanelChange={onPanelChange} />
+   <S.Wrapper>
+      <S.Calendar>
+         <div className="site-calendar-demo-card">
+         <Calendar dateCellRender={dateCellRender} monthCellRender={monthCellRender} value={value} onSelect={onSelect}  />
+  </div>
+    
       <section className="todoapp">
-        <input
-          type="text"
-          id="inToDo"
-          value={newTodo}
-          onChange={changeInput}
-          onKeyDown={pressEnter}
-          placeholder="What needs to be done?"
-        />
-        <input
-          type="date"
-          id="newDate"
-          value={newDate}
-          onChange={changeInput}
-          onKeyDown={pressEnter}
-          placeholder="year-month-day"
-        />
-
+       
         <ul className="list-todo">
           {arrtodo1
             .filter((item:any) => {
@@ -150,14 +132,24 @@ export const Todo: React.FC<{arrTodoValue:any}> = ({arrTodoValue = []}) =>{
             {
             return (
               <AdedToDo
-                handleDelete={handleDelete}
+                handleDelete={handleDelete} 
+                handleChange={newtodoroute}
                 // handleCheck={handleCheck}
                 item={item}
                 key={index}
               />
             )})}
         </ul>
+        <Link to={ROUTES.NEWTODO_ROUTE}>
+         <Button>Add new activity</Button>
+        </Link>
+        <Button  onClick={handleLogout}>Logout</Button>
       </section>
-    </div>
+      </S.Calendar>
+      </S.Wrapper>
+    
   );
 }
+
+
+export {Todo}

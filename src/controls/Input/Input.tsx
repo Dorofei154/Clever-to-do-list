@@ -1,7 +1,7 @@
 import React from 'react';
 import { Props } from './Input.interfaces';
 
-export const Input:  React.FC<Props> = ({className, text, name, value, changeInput}) => (
+export const Input = ({className, text, name, value, changeInput}:Props) => (
     <div className={className}>
             <label>Enter {text}
             </label>

@@ -1,3 +1,6 @@
-export const REGISTER_ROUTE = '/register';
-export const LOGIN_ROUTE = '/';
-export const TODO_ROUTE = '/todo';
+export const ROUTES = {
+    "REGISTER_ROUTE": '/register',
+    "LOGIN_ROUTE": '/',
+    "TODO_ROUTE": '/todo',
+    "NEWTODO_ROUTE": '/newtodo'
+}

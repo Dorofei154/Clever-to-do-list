@@ -1,69 +1,62 @@
-import React,{  useRef, useState }  from 'react';
-// import './Login.styles.ts'
-import {Link, useHistory } from 'react-router-dom';
-import { REGISTER_ROUTE, TODO_ROUTE } from '../../constants/constants';
-import {Button} from '../../controls/Button/Button';
-import {Input} from '../../controls/Input/Input'
-import { login, useAuth, logout, addTodo } from '../../firebase';
-import { Props } from './Login.interfaces';
+import React,{   useState }  from 'react';
+import './Login.styles.ts'
+
+import { useHistory } from 'react-router-dom';
+import { ROUTES } from '../../constants/constants';
+
+import { login, useAuth, } from '../../firebase';
+import { EnterForm } from '../../controls/Form/Form';
+import { S } from './Login.styles';
 
 
 
-export const Login: React.FC<Props> = ({}) => {
-    const [password, setPassword] = useState('')
-    const [email, setEmail] = useState('');
-    const [loading, setLoading] = useState(false);
-    const currentUser = useAuth();
+
+ const Login = () => {
+    const [password, SetPassword] = useState('')
+    const [email, SetEmail] = useState('');
     const history = useHistory();
 
 
-    const changeInput = (e:any) => {
-        console.log(e)
-        e.target.name === 'email' ? 
-        setEmail(e.target.value) :
-        setPassword(e.target.value)
+    const ChangeInput = (e:{ target: HTMLInputElement; }) => {
+        
+        e.target.type === 'email' ? 
+        SetEmail(e.target.value) :
+        SetPassword(e.target.value)
     }
 
-    const handleLogout = async (e:any) => {
-        setLoading(true);
-        e.preventDefault();
-        try{
-          await logout();
-          
-        }catch{
-            alert('Logout is not available')
-        }
-        setLoading(false)
-    }
-    const handleLogin = async (e:any) => {
-        setLoading(true);
+    
+    const handleLogin = async (e:React.FormEvent<HTMLInputElement>) => {
         e.preventDefault();
         try {           
+            console.log('222',email,'12', password)
         await login(email, password );
-        history.push(TODO_ROUTE)
+        history.push(ROUTES.TODO_ROUTE)
         } catch(e) {
             alert('Invalid data')
         }
-        setLoading(false)
+     
       }
     return (
-        <div>
-            <div className='wrap'>
-            <div className="wrapblock">
-                <h1>Login</h1>
-                <p>{ currentUser ? currentUser['email'] : null}</p>
+        <S.Container>
+            
+            <EnterForm header='Login' password={password} email={email} ChangeInput={ChangeInput} handleFunction={handleLogin} text='Sign In'/>
+            {/* <div className="wrapblock">
+                <Header text='Login' />
+                <p>{ CurrentUser ? CurrentUser['email'] : null}</p>
                 <form>
-                <Input  value={email} changeInput={changeInput} className="input" text='login' name='email' />
-                    <Input  value={password} changeInput={changeInput} className="input" text='password' name='password' />
-                    <Link to={REGISTER_ROUTE} >Registration</Link>  
+                    <Input  value={email} changeInput={ChangeInput} className="input" text='login' name='email' />
+                    <Input  value={password} changeInput={ChangeInput} className="input" text='password' name='password' />
+                    <Link to={ROUTES.REGISTER_ROUTE} >Registration</Link>  
                     <div>
-                      <Button disabled={loading} currentUser={currentUser} handle={handleLogin} text="Login" />
-                      <Button disabled={loading} currentUser={!currentUser} handle={handleLogout} text="Logout" />
+                      <Button disabled={false}  handle={handleFunction} text="Login" />
+                      
                     </div>
-                </form>
-            </div>
-        </div>
+                </form> */}
+               
+            {/* </div> */}
+      
               
-        </div>
+        </S.Container>
     )
 }
+export {Login}

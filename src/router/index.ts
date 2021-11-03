@@ -1,9 +1,12 @@
-import Register from "../components/Register/Register"
+import {Register} from "../components/Register/Register"
 import {Todo} from "../components/Inputtodo/Inputtodo";
 import {Login} from '../components/Login/Login'
-import { LOGIN_ROUTE, REGISTER_ROUTE, TODO_ROUTE } from "../constants/constants"
+import {ROUTES} from "../constants/constants"
+import {Newtodo} from "../components/Newtodo/Newtodo";
 
-export const routes = [
+const { LOGIN_ROUTE, REGISTER_ROUTE, TODO_ROUTE, NEWTODO_ROUTE } = ROUTES
+
+const routes = [
     {
         path: REGISTER_ROUTE,
         Component: Register
@@ -15,5 +18,11 @@ export const routes = [
     {
         path: LOGIN_ROUTE,
         Component: Login
+    },
+    {
+        path: NEWTODO_ROUTE,
+        Component: Newtodo
     }
 ]
+
+export {routes}
