@@ -18,14 +18,29 @@ import { ROUTES } from "../../constants/constants";
   const [date, setDate] = useState('')
   const [value, setValue] = useState(moment(new Date()))
  
-  const [arrtodo1, setArrtodo1] = useState([])
-  const currentUser:any = useAuth();
-  useEffect(() => {
-    if(currentUser?.email){
-      getTodo(currentUser.email, arrtodo1, setArrtodo1);
-    }
-  }, [currentUser, arrtodo1])
+  const [arrtodo1, setArrtodo1] = useState<
+  {
+    index: string;
+    data: {
+      id: string;
+      text: string;
+    };
+  }[]
+>([]);
+const currentUser: any = useAuth();
 
+const handleGetTodos = async () => {
+  if (currentUser?.email) {
+    const todos = await getTodo(currentUser.email);
+    
+    setArrtodo1(todos);
+  }
+};
+
+useEffect(() => {
+  handleGetTodos();
+  console.log("currentUser", currentUser);
+}, [currentUser]);
 
   const onSelect = (value:any) => {
     setMonth(value.month());

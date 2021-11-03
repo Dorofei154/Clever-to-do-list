@@ -11,12 +11,12 @@ import { getFirestore, collection, setDoc,  doc, getDocs, deleteDoc } from "fire
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAlUPAIInl5St5K3LJb6iP-CaMOqls2SA8",
-  authDomain: "todos-c7419.firebaseapp.com",
-  projectId: "todos-c7419",
-  storageBucket: "todos-c7419.appspot.com",
-  messagingSenderId: "1086643426861",
-  appId: "1:1086643426861:web:25954a896ae20144e74aa4"
+  apiKey: "AIzaSyD0ezzhrIKRD7z7xewYofp5_dirK8kvix4",
+  authDomain: "todo-a31ee.firebaseapp.com",
+  projectId: "todo-a31ee",
+  storageBucket: "todo-a31ee.appspot.com",
+  messagingSenderId: "1093155579406",
+  appId: "1:1093155579406:web:3621831daff5bd914b3e5f"
 };
 
 
@@ -42,19 +42,16 @@ const addTodo = async (text:any, email:any, date: any, header: any, dateTodo:any
   });
 }
 
-const getTodo = async (email:any, arrPush:any, setArrtodo1:any) => {
+const getTodo = async (email:any) => {
   const querySnapshot:any = await getDocs(collection(db, email));
-  const arr:any = []
+  const arr: { index: string; data: { id: string; text: string } }[] = [];
   querySnapshot.forEach((doc:any) => {
     arr.push({
        index:doc.id,
        data: doc.data()
      })
-   });  
-   setArrtodo1(arr)
-
-  return arrPush;
-  
+   });   
+   return arr
 }
 
 const signup = (email:any, password:any) =>{
