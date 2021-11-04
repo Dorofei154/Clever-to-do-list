@@ -36,7 +36,9 @@ const CalendarTodoContainerComponent = () => {
 
   const handleDelete = useCallback(
     (e) => {
-        deleteTodo(e, currentUser?.email);
+        if(currentUser?.email){
+          deleteTodo(e, currentUser?.email);
+        }
         setArrtodo(arrtodo.filter((item: { id: string; data: { id: string; text: string; header: string; date: number | moment.Moment; month: number | moment.Moment; }; })=>{ 
        console.log(item) 
        return item.id!== e}))

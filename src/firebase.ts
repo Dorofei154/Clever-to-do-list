@@ -31,12 +31,12 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore();
 const auth = getAuth(app);
 
-const deleteTodo = async (e: string, email: any) => {
+const deleteTodo = async (e: string, email: string) => {
   return deleteDoc(doc(db, email, e));
 };
 
 const addTodo = async (
-  text:string, email:any, date: string, header: string, index:string
+  text:string, email:string, date: string, header: string, index:string
 ) => {
 
   const dateRes = new Date(date);

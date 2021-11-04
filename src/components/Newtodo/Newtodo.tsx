@@ -42,13 +42,16 @@ const NewtodoContainerComponent = ( {location}:{location:{
   const addtodoHandler = () => {
     
     history.push(ROUTES.TODO_ROUTE);
-    addTodo(
-      newTodo,
-      currentUser?.email,
-      String(newDate),
-      newHeader,
-      changeInfo ? changeInfo[0]["id"] : String(Date.now())
-    );
+    if(currentUser?.email){
+      addTodo(
+        newTodo,
+        currentUser?.email,
+        String(newDate),
+        newHeader,
+        changeInfo ? changeInfo[0]["id"] : String(Date.now())
+      );
+    }
+    
   };
 
 
