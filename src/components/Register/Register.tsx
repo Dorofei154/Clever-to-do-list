@@ -1,15 +1,14 @@
-import React, { useCallback, useState } from "react";
+import React, { memo, useCallback, useState } from "react";
 import { signup } from "../../firebase";
 
 import { useHistory } from "react-router";
 import { ROUTES } from "../../constants/constants";
 import { RegisterView } from "../views/Register/Register";
 
-const Register = () => {
+const RegisterContainer = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
-
   const handleChangePassowrd = useCallback((text: string) => {
     setPassword(text);
   }, []);
@@ -36,4 +35,4 @@ const Register = () => {
     />
   );
 };
-export { Register };
+export const Register = memo(RegisterContainer);

@@ -10,13 +10,11 @@ const FormInputComponent: FC<IProps> = ({
   defaultValue = "",
   type,
 }) => {
-  console.log("value", value);
-  console.log("type", type);
-
   return (
     <Form.Item
       label={`Enter ${label}`}
-      name="header"
+      name={type}
+      initialValue={defaultValue}
       rules={[
         {
           required: true,
@@ -25,7 +23,6 @@ const FormInputComponent: FC<IProps> = ({
       ]}
     >
       <Input
-        defaultValue={defaultValue}
         value={value}
         onChange={(e) => onChangeHandle(e.target.value)}
         type={type}

@@ -13,7 +13,7 @@ const EnterFormComponent: FC<IProps> = ({
 }) => {
   return (
     <Form
-      name="basic"
+      name="EnterFormComponent"
       labelCol={{
         span: 8,
       }}
@@ -21,7 +21,6 @@ const EnterFormComponent: FC<IProps> = ({
         offset: 1,
         span: 8,
       }}
-      autoComplete="off"
     >
       <Form.Item
         wrapperCol={{
@@ -29,7 +28,7 @@ const EnterFormComponent: FC<IProps> = ({
           span: 16,
         }}
       >
-        <Header text={header} />
+      <Header text={header} />
       </Form.Item>
       <FormInput
         value={email}
