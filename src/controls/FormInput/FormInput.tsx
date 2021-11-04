@@ -1,25 +1,36 @@
 import { Form, Input } from "antd";
+import { FC, memo } from "react";
+import { IProps } from "./FormInput.types";
 
-const FormInput = ({ value, type, changeInput }: { [key: string]: any }) => {
+const FormInputComponent: FC<IProps> = ({
+  label,
+  ruleMessage,
+  onChangeHandle,
+  value,
+  defaultValue = "",
+  type,
+}) => {
+  console.log("value", value);
+  console.log("type", type);
+
   return (
     <Form.Item
-      label={`Enter ${type === "email" ? "email" : "password"}`}
+      label={`Enter ${label}`}
       name="header"
       rules={[
         {
           required: true,
-          message: `Please enter ${type === "email" ? "email" : "password"}!`,
+          message: `Please enter ${ruleMessage}!`,
         },
       ]}
     >
       <Input
-        id={type}
-        defaultValue={value}
+        defaultValue={defaultValue}
         value={value}
-        onChange={changeInput}
+        onChange={(e) => onChangeHandle(e.target.value)}
         type={type}
       />
     </Form.Item>
   );
 };
-export { FormInput };
+export const FormInput = memo(FormInputComponent);

@@ -1,6 +1,12 @@
 import { Button, Form } from "antd";
 
-const FormButton = ({ handleFunction, text }: { [key: string]: any }) => {
+const FormButton = ({
+  handleFunction,
+  text,
+}: {
+  handleFunction: () => void;
+  text: string;
+}) => {
   return (
     <Form.Item
       wrapperCol={{

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import "./Login.styles.ts";
 
 import { useHistory } from "react-router-dom";
@@ -9,18 +9,19 @@ import { login } from "../../firebase";
 import { LoginView } from "../views/Login/Login";
 
 const Login = () => {
-  const [password, SetPassword] = useState("");
-  const [email, SetEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
   const history = useHistory();
 
-  const changeInput = (e: { target: HTMLInputElement }) => {
-    e.target.type === "email"
-      ? SetEmail(e.target.value)
-      : SetPassword(e.target.value);
-  };
+  const handleChangePassowrd = useCallback((text: string) => {
+    setPassword(text);
+  }, []);
 
-  const handleLogin = async (e: React.FormEvent<HTMLInputElement>) => {
-    e.preventDefault();
+  const handleChangeEmail = useCallback((text: string) => {
+    setEmail(text);
+  }, []);
+
+  const handleLogin = async () => {
     try {
       await login(email, password);
       history.push(ROUTES.TODO_ROUTE);
@@ -32,7 +33,8 @@ const Login = () => {
     <LoginView
       password={password}
       email={email}
-      changeInput={changeInput}
+      handleChangePassowrd={handleChangePassowrd}
+      handleChangeEmail={handleChangeEmail}
       handleLogin={handleLogin}
     />
   );

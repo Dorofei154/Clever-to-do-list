@@ -27,9 +27,6 @@ export const NewtodoComponent = ({
           offset: 1,
           span: 8,
         }}
-        initialValues={{
-          remember: true,
-        }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
