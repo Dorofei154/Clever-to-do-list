@@ -5,7 +5,7 @@ import { useHistory } from "react-router";
 import { ROUTES } from "../../constants/constants";
 import { RegisterView } from "../views/Register/Register";
 
-const Register = () => {
+const RegisterComponent = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
@@ -34,4 +34,4 @@ const Register = () => {
     />
   );
 };
-export { Register };
+export const Register = RegisterComponent;

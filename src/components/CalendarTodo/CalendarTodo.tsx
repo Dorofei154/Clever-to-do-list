@@ -9,8 +9,8 @@ import { CalendarTodoView } from "../views/CalendarTodo/CalendarTodo";
 
 const Todo = () => {
   const history = useHistory();
-  const [month, setMonth] = useState("");
-  const [date, setDate] = useState("");
+  const [month, setMonth] = useState<moment.Moment | number>(0);
+  const [date, setDate] = useState<moment.Moment | number>();
   const [value, setValue] = useState(moment(new Date()));
 
   const [arrtodo, setArrtodo] = useState<
@@ -37,7 +37,7 @@ const Todo = () => {
     console.log("currentUser", currentUser);
   }, [currentUser]);
 
-  const onSelect = (value: any) => {
+  const onSelect = (value: moment.Moment) => {
     setMonth(value.month());
     setDate(value.date());
     setValue(value);
@@ -51,9 +51,8 @@ const Todo = () => {
   );
 
   const getListData = (value: moment.Moment) => {
-    let listData = arrtodo;
-    let listDatares: any = [];
-    listData.forEach((item: any) => {
+    const listDatares:{ content: string; id: string }[] = [];
+    arrtodo.forEach((item: any) => {
       if (
         value.date() === item.data.date &&
         value.month() === item.data.month
@@ -69,6 +68,7 @@ const Todo = () => {
 
   const dateCellRender = (value: moment.Moment) => {
     const listData: any = getListData(value);
+    console.log(listData)
     return (
       <ul>
         {listData.map((item: any) => {
