@@ -1,9 +1,8 @@
 export interface Props {
-    className: string;
-    text: string;
-    name:string;
-  
-    value: string;
-    changeInput: any
-  }
-  
+  className: string;
+  text: string;
+  name: string;
+
+  value: string;
+  changeInput: any;
+}

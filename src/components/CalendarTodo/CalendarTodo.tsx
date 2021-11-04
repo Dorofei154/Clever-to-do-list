@@ -74,15 +74,13 @@ const Todo = () => {
         {listData.map((item: any) => {
           return (
             <S.List key={item.id}>
-              <Badge status='warning' text={item.content} />
+              <Badge status="warning" text={item.content} />
             </S.List>
           );
         })}
       </ul>
     );
   };
-
-
 
   const newTodoRoute = (e: { target: HTMLInputElement }) => {
     const res = arrtodo.filter((item: any) => {

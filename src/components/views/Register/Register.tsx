@@ -1,27 +1,25 @@
 import React, { memo } from "react";
 import { S } from "./Register.styles";
 
-
 import { EnterForm } from "../../../controls/Form/EnterForm";
-
 
 const RegisterComponent = ({
   password,
   email,
   changeInput,
-  handleRegistration
+  handleRegistration,
 }: {
   [key: string]: any;
 }) => {
   return (
     <S.Container>
       <EnterForm
-        header='Registration'
+        header="Registration"
         password={password}
         changeInput={changeInput}
         email={email}
         handleFunction={handleRegistration}
-        text='Registration'
+        text="Registration"
       />
     </S.Container>
   );

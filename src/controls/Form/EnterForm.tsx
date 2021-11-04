@@ -1,4 +1,4 @@
-import { Form} from "antd";
+import { Form } from "antd";
 import { FormButton } from "../FormButton/FormButton";
 import { FormInput } from "../FormInput/FormInput";
 import { FormLink } from "../FormLink/FormLink";
@@ -11,13 +11,12 @@ const EnterForm = ({
   password,
   handleFunction,
   text,
-  
 }: {
   [key: string]: any;
 }) => {
   return (
     <Form
-      name='basic'
+      name="basic"
       labelCol={{
         span: 8,
       }}
@@ -28,7 +27,7 @@ const EnterForm = ({
       initialValues={{
         remember: true,
       }}
-      autoComplete='off'
+      autoComplete="off"
     >
       <Form.Item
         wrapperCol={{
@@ -38,19 +37,11 @@ const EnterForm = ({
       >
         <Header text={header} />
       </Form.Item>
-      <FormInput 
-         value = {email}
-         type = 'email'
-         changeInput = {changeInput}
-      />
-      <FormInput 
-         value = {password}
-         type = 'password'
-         changeInput = {changeInput}
-      />
-      <FormLink text={text}/>
-   
-     <FormButton text={text} handleFunction={handleFunction} />
+      <FormInput value={email} type="email" changeInput={changeInput} />
+      <FormInput value={password} type="password" changeInput={changeInput} />
+      <FormLink text={text} />
+
+      <FormButton text={text} handleFunction={handleFunction} />
     </Form>
   );
 };

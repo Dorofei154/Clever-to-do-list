@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 
-import {AddedToDo} from "../../Addedtodo/Addedtodo";
+import { AddedToDo } from "../../Addedtodo/Addedtodo";
 import { Calendar, Badge, Button } from "antd";
 import { S } from "./CalendarTodo.styles";
 import { Link } from "react-router-dom";
