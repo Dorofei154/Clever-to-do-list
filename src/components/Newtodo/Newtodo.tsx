@@ -1,67 +1,69 @@
 import React, { useState } from "react";
 import { addTodo, useAuth } from "../../firebase";
-import { useHistory } from "react-router-dom";
+import { useHistory,  } from "react-router-dom";
 import { ROUTES } from "../../constants/constants";
 import moment from "moment";
 import { NewtodoView } from "../views/Newtodo/Newtodo";
 
-const NewtodoComponent = (props: any) => {
-  const changeInfo = props.location.state;
+
+
+
+
+const NewtodoContainerComponent = ( {location}:{location:{
+  pathname: string; key: string; hash: string; search: string; state: {0:{id:string; data:{date:moment.Moment;month:moment.Moment; res:string; header:string;}}}
+}} ) => {
+
+  const changeInfo = location.state;
   const [newTodo, setNewTodo] = useState(
     changeInfo ? changeInfo[0]["data"]["res"] : ""
   );
-  const [newHeader, setNewHeaeder] = useState(
-    changeInfo ? changeInfo[0]["data"]["header"] : ""
-  );
+  const [newHeader, setNewHeaeder] = useState(changeInfo ? changeInfo[0]["data"]["header"] : "");
   const [newDate, setnewDate] = useState(
     changeInfo
       ? moment(
-          `2021-${changeInfo[0]["data"]["month"] + 1}-${
+          `2021-${Number(changeInfo[0]["data"]["month"])+1}-${
             changeInfo[0]["data"]["date"]
           }`
         )
-      : ""
+      : moment()
   );
-  const currentUser: any = useAuth();
+  const currentUser = useAuth();
   const history = useHistory();
 
-  function onChange(dateString: moment.Moment) {
-    setnewDate(dateString);
+  const onChange = (value: moment.Moment | null, dateString: string) => {
+   const res = moment(dateString)
+    setnewDate(res);
   }
-  const changeInput = (e: { target: HTMLInputElement }) => {
+  const changeInput = (e: React.ChangeEvent<HTMLTextAreaElement|HTMLInputElement>) => {
     e.target.id === "inToDo"
       ? setNewTodo(e.target.value)
       : setNewHeaeder(e.target.value);
   };
-  const AddtodoHandler = () => {
+  const addtodoHandler = () => {
+    
     history.push(ROUTES.TODO_ROUTE);
     addTodo(
       newTodo,
-      currentUser["email"],
-      newDate,
+      currentUser?.email,
+      String(newDate),
       newHeader,
-      changeInfo ? changeInfo[0]["index"] : String(Date.now())
+      changeInfo ? changeInfo[0]["id"] : String(Date.now())
     );
   };
 
-  const onFinish = (values: any) => {
-    console.log("Success:", values);
-  };
 
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
-  };
+
   return (
     <NewtodoView
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
       newHeader={newHeader}
       changeInput={changeInput}
       newTodo={newTodo}
       onChange={onChange}
       changeInfo={changeInfo}
-      Addtodo={AddtodoHandler}
+      Addtodo={addtodoHandler}
     />
   );
 };
-export const Newtodo = NewtodoComponent
+export const NewtodoContainer = NewtodoContainerComponent
+
+

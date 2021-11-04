@@ -1,23 +1,19 @@
-import { Form} from "antd";
-import { FormButton } from "../FormButton/FormButton";
+import { Form } from "antd";
+import { FC, memo } from "react";
+import { IProps } from "./EnterForm.types";
 import { FormInput } from "../FormInput/FormInput";
-import { FormLink } from "../FormLink/FormLink";
 import { Header } from "../Header/Header";
 
-const EnterForm = ({
+const EnterFormComponent: FC<IProps> = ({
   header,
   email,
-  changeInput,
   password,
-  handleFunction,
-  text,
-  
-}: {
-  [key: string]: any;
+  handleChangeEmail,
+  handleChangePassword,
 }) => {
   return (
     <Form
-      name='basic'
+      name="EnterFormComponent"
       labelCol={{
         span: 8,
       }}
@@ -25,10 +21,6 @@ const EnterForm = ({
         offset: 1,
         span: 8,
       }}
-      initialValues={{
-        remember: true,
-      }}
-      autoComplete='off'
     >
       <Form.Item
         wrapperCol={{
@@ -36,22 +28,23 @@ const EnterForm = ({
           span: 16,
         }}
       >
-        <Header text={header} />
+      <Header text={header} />
       </Form.Item>
-      <FormInput 
-         value = {email}
-         type = 'email'
-         changeInput = {changeInput}
+      <FormInput
+        value={email}
+        label="email"
+        ruleMessage="email"
+        type="email"
+        onChangeHandle={handleChangeEmail}
       />
-      <FormInput 
-         value = {password}
-         type = 'password'
-         changeInput = {changeInput}
+      <FormInput
+        value={password}
+        type="password"
+        label="password"
+        ruleMessage="password"
+        onChangeHandle={handleChangePassword}
       />
-      <FormLink text={text}/>
-   
-     <FormButton text={text} handleFunction={handleFunction} />
     </Form>
   );
 };
-export { EnterForm };
+export const EnterForm = memo(EnterFormComponent);

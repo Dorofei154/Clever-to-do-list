@@ -1,15 +1,14 @@
 import React, { memo } from "react";
 
-import {AddedToDo} from "../../Addedtodo/Addedtodo";
-import { Calendar, Badge, Button } from "antd";
+import { AddedToDoContainer } from "../../Addedtodo/Addedtodo";
+import { Calendar, Button } from "antd";
 import { S } from "./CalendarTodo.styles";
 import { Link } from "react-router-dom";
 
 import { ROUTES } from "../../../constants/constants";
 
-const TodoComponent = ({
+const CalendarContainerComponentView = ({
   dateCellRender,
-  monthCellRender,
   value,
   onSelect,
   arrtodo,
@@ -19,14 +18,31 @@ const TodoComponent = ({
   newTodoRoute,
   handleLogout,
 }: {
-  [key: string]: any;
+  value: moment.Moment;
+  dateCellRender:  (value: moment.Moment) => JSX.Element;
+  onSelect:(value: moment.Moment) => void
+  arrtodo: {
+    id: string;
+    data: {
+        id: string;
+        text: string;
+        header: string;
+        date: moment.Moment | number;
+        month: moment.Moment | number;
+    };
+}[];
+  date: number | moment.Moment | undefined;
+  month: number | moment.Moment;
+  handleDelete: (e: string) => void;
+  newTodoRoute: ( e: React.MouseEvent<HTMLLabelElement, MouseEvent>) => void;
+  handleLogout: (e: React.MouseEvent<HTMLElement, MouseEvent>) => Promise<void>
 }) => {
   return (
     <S.Wrapper>
       <S.Calendar>
         <Calendar
           dateCellRender={dateCellRender}
-          monthCellRender={monthCellRender}
+        
           value={value}
           onSelect={onSelect}
         />
@@ -34,12 +50,12 @@ const TodoComponent = ({
         <S.Section>
           <S.Ul>
             {arrtodo
-              .filter((item: any) => {
+              .filter((item: { id: string; data: { id: string; text: string; header: string; date:moment.Moment | number; month :moment.Moment | number }; }) => {
                 return item.data.date === date && item.data.month === month;
               })
-              .map((item: any, index: any) => {
+              .map((item,index) => {
                 return (
-                  <AddedToDo
+                  <AddedToDoContainer
                     handleDelete={handleDelete}
                     handleChange={newTodoRoute}
                     item={item}
@@ -58,4 +74,4 @@ const TodoComponent = ({
   );
 };
 
-export const CalendarTodoView = memo(TodoComponent);
+export const CalendarTodoView = memo(CalendarContainerComponentView);

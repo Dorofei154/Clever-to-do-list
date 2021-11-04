@@ -1,41 +1,32 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { getTodo, useAuth, deleteTodo, logout } from "../../firebase";
 import { useHistory } from "react-router-dom";
-import { Badge } from "antd";
-import { S } from "./CalendarTodo.styles";
 import moment from "moment";
 import { ROUTES } from "../../constants/constants";
 import { CalendarTodoView } from "../views/CalendarTodo/CalendarTodo";
+import {DateCellRenderContainer} from '../CellRender/CellRender'
 
-const Todo = () => {
+const CalendarTodoContainerComponent = () => {
   const history = useHistory();
   const [month, setMonth] = useState<moment.Moment | number>(0);
   const [date, setDate] = useState<moment.Moment | number>();
   const [value, setValue] = useState(moment(new Date()));
 
   const [arrtodo, setArrtodo] = useState<
-    {
-      index: string;
-      data: {
-        id: string;
-        text: string;
-      };
-    }[]
+  { id: string; data: { id: string; text: string; header: string; date:moment.Moment | number; month :moment.Moment | number }; }[]
   >([]);
-  const currentUser: any = useAuth();
+  const currentUser = useAuth();
 
   const handleGetTodos = async () => {
     if (currentUser?.email) {
       const todos = await getTodo(currentUser.email);
-
       setArrtodo(todos);
     }
   };
 
   useEffect(() => {
     handleGetTodos();
-    console.log("currentUser", currentUser);
-  }, [currentUser]);
+  },[currentUser]);
 
   const onSelect = (value: moment.Moment) => {
     setMonth(value.month());
@@ -45,14 +36,17 @@ const Todo = () => {
 
   const handleDelete = useCallback(
     (e) => {
-      deleteTodo(e, currentUser.email);
+        deleteTodo(e, currentUser?.email);
+        setArrtodo(arrtodo.filter((item: { id: string; data: { id: string; text: string; header: string; date: number | moment.Moment; month: number | moment.Moment; }; })=>{ 
+       console.log(item) 
+       return item.id!== e}))
     },
-    [arrtodo]
+    [arrtodo, currentUser]
   );
 
-  const getListData = (value: moment.Moment) => {
+   const getListData = (value: moment.Moment) => {
     const listDatares:{ content: string; id: string }[] = [];
-    arrtodo.forEach((item: any) => {
+    arrtodo.forEach((item:{ id: string; data: { id: string; text: string; header: string; date: number | moment.Moment; month: number | moment.Moment; }; }) => {
       if (
         value.date() === item.data.date &&
         value.month() === item.data.month
@@ -66,27 +60,11 @@ const Todo = () => {
     return listDatares || [];
   };
 
-  const dateCellRender = (value: moment.Moment) => {
-    const listData: any = getListData(value);
-    console.log(listData)
-    return (
-      <ul>
-        {listData.map((item: any) => {
-          return (
-            <S.List key={item.id}>
-              <Badge status='warning' text={item.content} />
-            </S.List>
-          );
-        })}
-      </ul>
-    );
-  };
 
-
-
-  const newTodoRoute = (e: { target: HTMLInputElement }) => {
-    const res = arrtodo.filter((item: any) => {
-      return item.index === e.target.id;
+  const newTodoRoute = (e: React.MouseEvent<HTMLLabelElement, MouseEvent>) => {
+    const targetRes = e.target as HTMLLabelElement;
+    const res = arrtodo.filter((item: { id: string; data: { id: string; text: string; header: string; date:moment.Moment | number; month :moment.Moment | number }; }) => {
+      return item.id === targetRes.id;
     });
     history.push(ROUTES.NEWTODO_ROUTE, res);
   };
@@ -102,7 +80,7 @@ const Todo = () => {
 
   return (
     <CalendarTodoView
-      dateCellRender={dateCellRender}
+      dateCellRender={(e) => DateCellRenderContainer(e, getListData)}
       value={value}
       onSelect={onSelect}
       arrtodo={arrtodo}
@@ -115,4 +93,4 @@ const Todo = () => {
   );
 };
 
-export { Todo };
+export const CalendarTodoContainer = CalendarTodoContainerComponent;

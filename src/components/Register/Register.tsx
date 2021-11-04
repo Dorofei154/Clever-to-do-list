@@ -1,23 +1,23 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { signup } from "../../firebase";
 
 import { useHistory } from "react-router";
 import { ROUTES } from "../../constants/constants";
 import { RegisterView } from "../views/Register/Register";
 
-const RegisterComponent = () => {
+const RegisterContainerComponent = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
+  const handleChangePassowrd = useCallback((text: string) => {
+    setPassword(text);
+  }, []);
 
-  const changeInput = (e: { target: HTMLInputElement }) => {
-    e.target.type === "email"
-      ? setEmail(e.target.value)
-      : setPassword(e.target.value);
-  };
+  const handleChangeEmail = useCallback((text: string) => {
+    setEmail(text);
+  }, []);
 
-  const handleRegistration = async (e: React.FormEvent<HTMLInputElement>) => {
-    e.preventDefault();
+  const handleRegistration = async () => {
     try {
       await signup(email, password);
       history.push(ROUTES.LOGIN_ROUTE);
@@ -28,10 +28,13 @@ const RegisterComponent = () => {
   return (
     <RegisterView
       password={password}
-      changeInput={changeInput}
       email={email}
       handleRegistration={handleRegistration}
+      handleChangeEmail={handleChangeEmail}
+      handleChangePassword={handleChangePassowrd}
     />
   );
 };
-export const Register = RegisterComponent;
+
+export const RegisterContainer = RegisterContainerComponent;
+

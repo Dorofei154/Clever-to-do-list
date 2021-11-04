@@ -1,12 +1,8 @@
-import React from 'react'
-import {Props} from './Header.interfaces'
+import React from "react";
 
-const Header = (props:any) =>{
-    return (
-        <h1>
-            {props.text}
-        </h1>
-    )
-}
 
-export {Header}
+const Header = ({ text }: { text: string }) => {
+  return <h1>{text}</h1>;
+};
+
+export { Header };

@@ -1,27 +1,33 @@
-import React, { memo } from "react";
+import React, { FC, memo } from "react";
 
 import { EnterForm } from "../../../controls/Form/EnterForm";
+import { FormButton } from "../../../controls/FormButton/FormButton";
+import { FormLink } from "../../../controls/FormLink/FormLink";
 import { S } from "./Login.styles";
+import { IProps } from "./Login.types";
+import { ROUTES } from "../../../constants/constants";
 
-const LoginComponent = ({
-    password,
-    email,
-    changeInput,
-    handleLogin,
-  }: {
-    [key: string]: any;
-  }) => {
+const LoginViewComponent: FC<IProps> = ({
+  password,
+  email,
+  handleChangePassowrd,
+  handleChangeEmail,
+  handleLogin,
+}) => {
+  const text = "Sign In";
   return (
     <S.Container>
       <EnterForm
-        header='Login'
+        header="Login"
         password={password}
         email={email}
-        changeInput={changeInput}
-        handleFunction={handleLogin}
-        text='Sign In'
+        handleChangeEmail={handleChangeEmail}
+        handleChangePassword={handleChangePassowrd}
       />
+      <FormLink text='Registration' link={ROUTES.REGISTER_ROUTE} />
+
+      <FormButton text={text} handleFunction={handleLogin} />
     </S.Container>
   );
 };
-export const LoginView = memo(LoginComponent);
+export const LoginView = memo(LoginViewComponent);

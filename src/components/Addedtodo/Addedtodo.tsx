@@ -1,21 +1,23 @@
 import React from "react";
 import { S } from "./Added.styles";
 
-const AddedToDo = ({
-  item: { index, data },
+const AddedToDoContainerComponent = ({
+  item: { id, data },
   handleDelete,
   handleChange,
 }: {
-  [key: string]: any;
-}) => {
+  item:{ id: string; data: { id: string; text: string; header: string; date: number | moment.Moment; month: number | moment.Moment; }; };
+  handleDelete: (id:string)=>void;
+  handleChange: (e: React.MouseEvent<HTMLLabelElement, MouseEvent>)=> void
+} ) => {
   return (
     <S.Div>
-      <S.Label id={index} onClick={handleChange}>
+      <S.Label id={id} onClick={handleChange}>
         {data.header}
       </S.Label>
-      <S.Span onClick={() => handleDelete(index)}>&#x2716;</S.Span>
+      <S.Span onClick={() => handleDelete(id)}>&#x2716;</S.Span>
     </S.Div>
   );
 };
 
-export { AddedToDo };
+export const AddedToDoContainer = AddedToDoContainerComponent;

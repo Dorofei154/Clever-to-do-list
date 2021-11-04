@@ -1,16 +1,14 @@
-
-import {  Button, Form } from 'antd';
-
+import { Button, Form } from "antd";
 
 const FormButton = ({
   handleFunction,
-  text
+  text,
 }: {
-  [key: string]: any;
-}) => { 
-     
-    return (
-      <Form.Item
+  handleFunction: () => void;
+  text: string;
+}) => {
+  return (
+    <Form.Item
       wrapperCol={{
         offset: 12,
         span: 16,
@@ -18,6 +16,6 @@ const FormButton = ({
     >
       <Button onClick={handleFunction}>{text}</Button>
     </Form.Item>
-    )
-}
-export {FormButton}
+  );
+};
+export { FormButton };
