@@ -1,12 +1,10 @@
 import { Button, Form } from "antd";
+import { IProps } from "./FormButton.types";
 
 const FormButton = ({
   handleFunction,
   text,
-}: {
-  handleFunction: () => void;
-  text: string;
-}) => {
+}: IProps ) => {
   return (
     <Form.Item
       wrapperCol={{

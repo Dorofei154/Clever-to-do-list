@@ -1,15 +1,15 @@
 import { Form, Input } from "antd";
-import { FC, memo } from "react";
+import { memo } from "react";
 import { IProps } from "./FormInput.types";
 
-const FormInputComponent: FC<IProps> = ({
+const FormInputComponent = ({
   label,
   ruleMessage,
   onChangeHandle,
   value,
   defaultValue = "",
   type,
-}) => {
+}:IProps) => {
   return (
     <Form.Item
       label={`Enter ${label}`}

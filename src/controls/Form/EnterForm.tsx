@@ -1,16 +1,16 @@
 import { Form } from "antd";
-import { FC, memo } from "react";
+import { memo } from "react";
 import { IProps } from "./EnterForm.types";
 import { FormInput } from "../FormInput/FormInput";
 import { Header } from "../Header/Header";
 
-const EnterFormComponent: FC<IProps> = ({
+const EnterFormComponent = ({
   header,
   email,
   password,
   handleChangeEmail,
   handleChangePassword,
-}) => {
+}: IProps) => {
   return (
     <Form
       name="EnterFormComponent"

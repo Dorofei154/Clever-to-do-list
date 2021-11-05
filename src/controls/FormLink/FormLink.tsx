@@ -1,8 +1,9 @@
 import { Form } from "antd";
 import { Link } from "react-router-dom";
+import { IProps } from "./FormLink.types";
 
 
-const FormLink = ({ text, link }: { [key: string]: string }) => {
+const FormLink = ({ text, link }: IProps ) => {
   return (
     <Form.Item
       wrapperCol={{

@@ -2,32 +2,11 @@ import { Button, Form, Input, DatePicker } from "antd";
 import moment from "moment";
 import { memo } from "react";
 import { S } from "./Newtodo.styles";
+import { IProps } from "./Newtodo.types";
 
-export const NewtodoComponent = ({
-  newHeader,
-  changeInput,
-  newTodo,
-  onChange,
-  changeInfo,
-  Addtodo,
-}: {
-  newHeader:string;
-  changeInput:  (e: React.ChangeEvent<HTMLTextAreaElement|HTMLInputElement>) => void;
-  newTodo:string;
-  onChange:(value: moment.Moment | null, dateString: string) => void;
-  changeInfo: {
-    0: {
-        id: string;
-        data: {
-            date: moment.Moment;
-            month: moment.Moment;
-            res: string;
-            header: string;
-        };
-    };
-};
-  Addtodo:() => void;
-}) => {
+export function NewtodoComponent({
+  newHeader, changeInput, newTodo, onChange, changeInfo, Addtodo,
+}: IProps) {
   const { TextArea } = Input;
   return (
     <S.Container>
@@ -56,8 +35,7 @@ export const NewtodoComponent = ({
             id="headertodo"
             value={newHeader}
             defaultValue={newHeader}
-            onChange={changeInput}
-          />
+            onChange={changeInput} />
         </Form.Item>
         <Form.Item
           label="Enter description"
@@ -75,8 +53,7 @@ export const NewtodoComponent = ({
             value={newTodo}
             defaultValue={newTodo}
             onChange={changeInput}
-            maxLength={100}
-          />
+            maxLength={100} />
         </Form.Item>
 
         <Form.Item
@@ -90,15 +67,12 @@ export const NewtodoComponent = ({
           ]}
         >
           <DatePicker
-            defaultValue={
-              changeInfo
-                ? moment(
-                    `2021-${changeInfo[0]["data"]["month"]}-${changeInfo[0]["data"]["date"]}`
-                  )
-                : undefined
-            }
-            onChange={onChange}
-          />
+            defaultValue={changeInfo
+              ? moment(
+                `2021-${changeInfo[0]["data"]["month"]}-${changeInfo[0]["data"]["date"]}`
+              )
+              : undefined}
+            onChange={onChange} />
         </Form.Item>
 
         <Form.Item
@@ -114,6 +88,6 @@ export const NewtodoComponent = ({
       </Form>
     </S.Container>
   );
-};
+}
 
 export const NewtodoView = memo(NewtodoComponent);

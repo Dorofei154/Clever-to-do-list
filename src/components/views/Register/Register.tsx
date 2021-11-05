@@ -1,4 +1,4 @@
-import React, { FC, memo } from "react";
+import { memo } from "react";
 import { S } from "./Register.styles";
 
 import { EnterForm } from "../../../controls/Form/EnterForm";
@@ -7,13 +7,13 @@ import { FormLink } from "../../../controls/FormLink/FormLink";
 import { IProps } from "./Register.types";
 import { ROUTES } from "../../../constants/constants";
 
-const RegisterViewComponent: FC<IProps> = ({
+const RegisterViewComponent = ({
   password,
   email,
   handleChangeEmail,
   handleChangePassword,
   handleRegistration,
-}) => {
+}: IProps) => {
   const text = "Registration";
   return (
     <S.Container>

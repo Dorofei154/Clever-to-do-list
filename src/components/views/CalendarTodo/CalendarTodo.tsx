@@ -6,6 +6,7 @@ import { S } from "./CalendarTodo.styles";
 import { Link } from "react-router-dom";
 
 import { ROUTES } from "../../../constants/constants";
+import { IProps } from "./CalendarTodo.types";
 
 const CalendarContainerComponentView = ({
   dateCellRender,
@@ -17,26 +18,10 @@ const CalendarContainerComponentView = ({
   handleDelete,
   newTodoRoute,
   handleLogout,
-}: {
-  value: moment.Moment;
-  dateCellRender:  (value: moment.Moment) => JSX.Element;
-  onSelect:(value: moment.Moment) => void
-  arrtodo: {
-    id: string;
-    data: {
-        id: string;
-        text: string;
-        header: string;
-        date: moment.Moment | number;
-        month: moment.Moment | number;
-    };
-}[];
-  date: number | moment.Moment | undefined;
-  month: number | moment.Moment;
-  handleDelete: (e: string) => void;
-  newTodoRoute: ( e: React.MouseEvent<HTMLLabelElement, MouseEvent>) => void;
-  handleLogout: (e: React.MouseEvent<HTMLElement, MouseEvent>) => Promise<void>
-}) => {
+  handleChangeTodo
+}: 
+  IProps
+) => {
   return (
     <S.Wrapper>
       <S.Calendar>
@@ -56,6 +41,7 @@ const CalendarContainerComponentView = ({
               .map((item,index) => {
                 return (
                   <AddedToDoContainer
+                    handleChangeTodo={handleChangeTodo}
                     handleDelete={handleDelete}
                     handleChange={newTodoRoute}
                     item={item}

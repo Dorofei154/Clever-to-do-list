@@ -1,17 +1,17 @@
-import React from "react";
+import { Checkbox } from "antd";
 import { S } from "./Added.styles";
+import { IProps } from "./Addedtodo.types";
 
 const AddedToDoContainerComponent = ({
   item: { id, data },
   handleDelete,
   handleChange,
-}: {
-  item:{ id: string; data: { id: string; text: string; header: string; date: number | moment.Moment; month: number | moment.Moment; }; };
-  handleDelete: (id:string)=>void;
-  handleChange: (e: React.MouseEvent<HTMLLabelElement, MouseEvent>)=> void
-} ) => {
+  handleChangeTodo
+}: IProps ) => {
+  
   return (
     <S.Div>
+      <Checkbox onClick={() => handleChangeTodo(id, data.done)} />
       <S.Label id={id} onClick={handleChange}>
         {data.header}
       </S.Label>

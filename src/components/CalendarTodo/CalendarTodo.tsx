@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { getTodo, useAuth, deleteTodo, logout } from "../../firebase";
+import { getTodo, useAuth, deleteTodo, logout, changeTodo } from "../../firebase";
 import { useHistory } from "react-router-dom";
 import moment from "moment";
 import { ROUTES } from "../../constants/constants";
@@ -13,7 +13,7 @@ const CalendarTodoContainerComponent = () => {
   const [value, setValue] = useState(moment(new Date()));
 
   const [arrtodo, setArrtodo] = useState<
-  { id: string; data: { id: string; text: string; header: string; date:moment.Moment | number; month :moment.Moment | number }; }[]
+  { id: string; data: { id: string; text: string; done:boolean; header: string; date:moment.Moment | number; month :moment.Moment | number }; }[]
   >([]);
   const currentUser = useAuth();
 
@@ -34,6 +34,18 @@ const CalendarTodoContainerComponent = () => {
     setValue(value);
   };
 
+  const handleChangeTodo = useCallback(
+    (e, done) => {
+    if(currentUser?.email){
+      changeTodo(
+        currentUser?.email,
+        e,
+        done,
+      );
+    }
+  },
+  [arrtodo, currentUser]
+);
   const handleDelete = useCallback(
     (e) => {
         if(currentUser?.email){
@@ -62,7 +74,7 @@ const CalendarTodoContainerComponent = () => {
     return listDatares || [];
   };
 
-
+  
   const newTodoRoute = (e: React.MouseEvent<HTMLLabelElement, MouseEvent>) => {
     const targetRes = e.target as HTMLLabelElement;
     const res = arrtodo.filter((item: { id: string; data: { id: string; text: string; header: string; date:moment.Moment | number; month :moment.Moment | number }; }) => {
@@ -87,12 +99,15 @@ const CalendarTodoContainerComponent = () => {
       onSelect={onSelect}
       arrtodo={arrtodo}
       date={date}
+      done={false}
       month={month}
       handleDelete={handleDelete}
       newTodoRoute={newTodoRoute}
       handleLogout={handleLogout}
+      handleChangeTodo={handleChangeTodo}
     />
   );
 };
 
 export const CalendarTodoContainer = CalendarTodoContainerComponent;
+

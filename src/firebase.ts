@@ -16,6 +16,7 @@ import {
   doc,
   getDocs,
   deleteDoc,
+  updateDoc,
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -43,14 +44,21 @@ const addTodo = async (
   await setDoc(doc(db, email, index), {
     header,
     res: text,
+    done:false,
     month: dateRes.getMonth(),
     date: dateRes.getDate(),
   });
 };
 
+const changeTodo = async (email:string,index:string, done:boolean) =>{
+  await updateDoc(doc(db, email, index), {
+    boolean: !done,
+  });
+}
+
 const getTodo = async (email: string) => {
   const querySnapshot: any = await getDocs(collection(db, email));
-  const arr:  { id: string; data: { id: string; text: string; header: string; date:moment.Moment | number; month :moment.Moment | number }; }[] = [];
+  const arr:  { id: string; data: { id: string; text: string; header: string; date:moment.Moment | number; done:boolean; month :moment.Moment | number }; }[] = [];
   querySnapshot.forEach((doc: any) => {
     arr.push({
       id: doc.id,
@@ -81,4 +89,4 @@ const useAuth = () => {
   return currentUser;
 };
 
-export { deleteTodo, auth, useAuth, getTodo, logout, signup, login, addTodo };
+export { deleteTodo, auth, useAuth, getTodo, logout, signup, login, addTodo, changeTodo };

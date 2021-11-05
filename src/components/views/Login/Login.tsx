@@ -7,13 +7,9 @@ import { S } from "./Login.styles";
 import { IProps } from "./Login.types";
 import { ROUTES } from "../../../constants/constants";
 
-const LoginViewComponent: FC<IProps> = ({
-  password,
-  email,
-  handleChangePassowrd,
-  handleChangeEmail,
-  handleLogin,
-}) => {
+function LoginViewComponent({
+  password, email, handleChangePassowrd, handleChangeEmail, handleLogin,
+}: IProps) {
   const text = "Sign In";
   return (
     <S.Container>
@@ -22,12 +18,11 @@ const LoginViewComponent: FC<IProps> = ({
         password={password}
         email={email}
         handleChangeEmail={handleChangeEmail}
-        handleChangePassword={handleChangePassowrd}
-      />
+        handleChangePassword={handleChangePassowrd} />
       <FormLink text='Registration' link={ROUTES.REGISTER_ROUTE} />
 
       <FormButton text={text} handleFunction={handleLogin} />
     </S.Container>
   );
-};
+}
 export const LoginView = memo(LoginViewComponent);

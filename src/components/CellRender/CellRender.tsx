@@ -3,9 +3,10 @@
 import React from 'react'
 import { Badge } from "antd";
 import {S} from './CellRender.styles'
+import { IProps } from './CellRender.types';
 
 
-const DateCellRenderContainerComponent = (value: moment.Moment, getListData:(value: moment.Moment)=>{ content: string; id: string; }[]) => {
+const DateCellRenderContainerComponent = (value:IProps['value'], getListData: IProps['getListData']) => {
     const listData: { content: string; id: string }[] = getListData(value);
     return (
       <ul>
