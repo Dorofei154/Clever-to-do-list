@@ -1,11 +1,11 @@
 import React from 'react';
-import {DropDownContextValue} from './types';
+import {LoginContextValue} from './types';
 
-export const dropDownContextValue: DropDownContextValue = {
+export const LoginContextValues: LoginContextValue = {
   handleRegistration: (email:string, password: string) => {},
   handleLogin: (email:string, password: string) => {},
   handleLogout: () => {},
   useAuth: () => null
 };
 
-export const DropDownContext = React.createContext(dropDownContextValue);
+export const LoginContext = React.createContext(LoginContextValues);

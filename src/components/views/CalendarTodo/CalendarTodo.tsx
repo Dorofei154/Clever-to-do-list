@@ -7,7 +7,7 @@ import { Link, useHistory } from "react-router-dom";
 
 import { ROUTES } from "../../../constants/constants";
 import { IProps } from "./CalendarTodo.types";
-import { DropDownContext } from "../../../context/context";
+import { LoginContext } from "../../../context/context";
 
 const CalendarContainerComponentView = ({
   dateCellRender,
@@ -22,9 +22,10 @@ const CalendarContainerComponentView = ({
 }: 
   IProps
 ) => {
-  const {handleLogout} = useContext(DropDownContext)
+  const {handleLogout} = useContext(LoginContext)
+  
   const history = useHistory();
-  return (
+    return (
     <S.Wrapper>
       <S.Calendar>
         <Calendar

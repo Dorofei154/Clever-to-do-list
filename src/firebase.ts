@@ -50,8 +50,9 @@ const addTodo = async (
 
 const changeTodo = async (email:string,index:string, done:boolean) =>{
   await updateDoc(doc(db, email, index), {
-    boolean: !done,
+    done: !done,
   });
+ 
 }
 
 const getTodo = async (email: string) => {

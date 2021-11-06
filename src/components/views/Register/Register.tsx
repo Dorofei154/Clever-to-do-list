@@ -5,7 +5,7 @@ import { EnterForm } from "../../../controls/Form/EnterForm";
 import { FormButton } from "../../../controls/FormButton/FormButton";
 import { FormLink } from "../../../controls/FormLink/FormLink";
 import { ROUTES } from "../../../constants/constants";
-import { DropDownContext } from "../../../context/context";
+import { LoginContext } from "../../../context/context";
 import { IProps } from "./Register.types";
 import { useHistory } from "react-router";
 
@@ -14,7 +14,7 @@ import { useHistory } from "react-router";
 const RegisterViewComponent = ({password, email, handleChangeEmail, handleChangePassword}:IProps) => {
   const text = "Registration";
   const history = useHistory();
-  const {handleRegistration} = useContext(DropDownContext)
+  const {handleRegistration} = useContext(LoginContext)
   return (
     <S.Container>
       <EnterForm

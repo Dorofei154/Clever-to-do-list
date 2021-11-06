@@ -9,7 +9,7 @@ export const S = {
     height: 100vh;
   `,
   Label: styled.label`
-    margin-left: 10px;
+    padding-left: 10px;
     margin-right: 10px;
     &:hover {
       cursor: pointer;

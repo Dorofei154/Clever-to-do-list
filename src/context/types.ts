@@ -1,9 +1,8 @@
 import { User } from 'firebase/auth';
 import React from 'react';
 
-export type TFuncsToCloseDropDowns = () => void;
 
-export interface DropDownContextValue { 
+export interface LoginContextValue { 
   handleRegistration: (email:string, password: string) => void;
    handleLogin: (email:string, password: string) => void;
    handleLogout: () => void;

@@ -5,18 +5,17 @@ import moment from "moment";
 import { ROUTES } from "../../constants/constants";
 import { CalendarTodoView } from "../views/CalendarTodo/CalendarTodo";
 import {DateCellRenderContainer} from '../CellRender/CellRender'
-import { DropDownContext } from "../../context/context";
+import { LoginContext } from "../../context/context";
 
 const CalendarTodoContainerComponent = () => {
   const history = useHistory();
   const [month, setMonth] = useState<moment.Moment | number>(0);
   const [date, setDate] = useState<moment.Moment | number>();
   const [value, setValue] = useState(moment(new Date()));
-
   const [arrtodo, setArrtodo] = useState<
   { id: string; data: { id: string; text: string; done:boolean; header: string; date:moment.Moment | number; month :moment.Moment | number }; }[]
   >([]);
-  const {useAuth} = useContext(DropDownContext)
+  const {useAuth} = useContext(LoginContext)
   const currentUser = useAuth();
 
   const handleGetTodos = async () => {
@@ -44,17 +43,29 @@ const CalendarTodoContainerComponent = () => {
         e,
         done,
       );
+      setArrtodo(arrtodo.map((item: { id: string; data: { id: string; text: string; done: boolean; header: string; date: number | moment.Moment; month: number | moment.Moment; }; })=>{ 
+        if(item.id === e){
+          return {
+            ...item,
+            data:{
+              ...item.data,
+              done:!item.data.done
+            }
+          }
+        }
+        return item
+        }))
     }
   },
   [arrtodo, currentUser]
 );
+
   const handleDelete = useCallback(
     (e) => {
         if(currentUser?.email){
           deleteTodo(e, currentUser?.email);
         }
         setArrtodo(arrtodo.filter((item: { id: string; data: { id: string; text: string; header: string; date: number | moment.Moment; month: number | moment.Moment; }; })=>{ 
-       console.log(item) 
        return item.id!== e}))
     },
     [arrtodo, currentUser]
@@ -93,11 +104,9 @@ const CalendarTodoContainerComponent = () => {
       onSelect={onSelect}
       arrtodo={arrtodo}
       date={date}
-      done={false}
       month={month}
       handleDelete={handleDelete}
       newTodoRoute={newTodoRoute}
-    
       handleChangeTodo={handleChangeTodo}
     />
   );

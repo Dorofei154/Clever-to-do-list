@@ -15,7 +15,6 @@ export interface IProps {
 }[];
   date: number | moment.Moment | undefined;
   month: number | moment.Moment;
-  done: boolean;
   handleDelete: (e: string) => void;
   newTodoRoute: ( e: React.MouseEvent<HTMLLabelElement, MouseEvent>) => void;
   handleChangeTodo: (e: string, done:boolean) => void

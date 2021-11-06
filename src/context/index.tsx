@@ -2,10 +2,10 @@ import { onAuthStateChanged, User } from "firebase/auth";
 import React, { memo, useEffect, useState  } from "react";
 
 import { auth, login, logout, signup } from "../firebase";
-import { DropDownContext } from "./context";
+import { LoginContext } from "./context";
 import { IProviderProps } from "./types";
 
-function DropDownProviderComponent({ children }: IProviderProps) {
+function LoginProviderComponent({ children }: IProviderProps) {
 
 
   const useAuth = () => {
@@ -40,7 +40,7 @@ function DropDownProviderComponent({ children }: IProviderProps) {
   };
 
   return (
-    <DropDownContext.Provider
+    <LoginContext.Provider
       value={{
         handleRegistration,
         handleLogin,
@@ -49,11 +49,11 @@ function DropDownProviderComponent({ children }: IProviderProps) {
       }}
     >
       {children}
-    </DropDownContext.Provider>
+    </LoginContext.Provider>
   );
 }
 
-export const DropDownProvider = memo(DropDownProviderComponent);
+export const LoginProvider = memo(LoginProviderComponent);
 
 
 

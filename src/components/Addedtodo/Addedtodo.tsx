@@ -6,12 +6,13 @@ const AddedToDoContainerComponent = ({
   item: { id, data },
   handleDelete,
   handleChange,
-  handleChangeTodo
-}: IProps ) => {
-  
-  return (
+  handleChangeTodo,
+}: IProps ) => { 
+    return (
     <S.Div>
-      <Checkbox onClick={() => handleChangeTodo(id, data.done)} />
+      <Checkbox checked={data.done} onClick={() =>{
+        handleChangeTodo(id, data.done)
+      }} />
       <S.Label id={id} onClick={handleChange}>
         {data.header}
       </S.Label>

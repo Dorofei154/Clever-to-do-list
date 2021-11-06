@@ -4,7 +4,7 @@ import { useHistory,  } from "react-router-dom";
 import { ROUTES } from "../../constants/constants";
 import moment from "moment";
 import { NewtodoView } from "../views/Newtodo/Newtodo";
-import { DropDownContext } from "../../context/context";
+import { LoginContext } from "../../context/context";
 
 
 
@@ -28,7 +28,7 @@ const NewtodoContainerComponent = ( {location}:{location:{
         )
       : moment()
   );
-  const {useAuth} = useContext(DropDownContext)
+  const {useAuth} = useContext(LoginContext)
   const currentUser = useAuth();
   const history = useHistory();
 

@@ -6,7 +6,7 @@ import { FormLink } from "../../../controls/FormLink/FormLink";
 import { S } from "./Login.styles";
 import { IProps } from "./Login.types";
 import { ROUTES } from "../../../constants/constants";
-import { DropDownContext } from "../../../context/context";
+import { LoginContext } from "../../../context/context";
 import { useHistory } from "react-router";
 
 function LoginViewComponent({
@@ -14,7 +14,7 @@ function LoginViewComponent({
 }: IProps) {
   const text = "Sign In";
   const history = useHistory();
-  const {handleLogin} = useContext(DropDownContext)
+  const {handleLogin} = useContext(LoginContext)
   return (
     <S.Container>
       <EnterForm
