@@ -3,12 +3,10 @@ import { initializeApp } from "firebase/app";
 import {
   getAuth,
   createUserWithEmailAndPassword,
-  onAuthStateChanged,
   signOut,
   signInWithEmailAndPassword,
-  User, 
 } from "firebase/auth";
-import {  useEffect, useState } from "react";
+
 import {
   getFirestore,
   collection,
@@ -78,15 +76,6 @@ const logout = () => {
   return signOut(auth);
 };
 
-const useAuth = () => {
-  const [currentUser, setCurrentUser] = useState<User | null | undefined>(null);
-  useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (user: User | null) => {
-      setCurrentUser(user);
-    });
-    return unsub;
-  }, []);
-  return currentUser;
-};
 
-export { deleteTodo, auth, useAuth, getTodo, logout, signup, login, addTodo, changeTodo };
+
+export { deleteTodo, auth,  getTodo, logout, signup, login, addTodo, changeTodo };

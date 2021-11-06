@@ -1,12 +1,13 @@
-import React, { memo } from "react";
+import React, { memo, useContext } from "react";
 
 import { AddedToDoContainer } from "../../Addedtodo/Addedtodo";
 import { Calendar, Button } from "antd";
 import { S } from "./CalendarTodo.styles";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import { ROUTES } from "../../../constants/constants";
 import { IProps } from "./CalendarTodo.types";
+import { DropDownContext } from "../../../context/context";
 
 const CalendarContainerComponentView = ({
   dateCellRender,
@@ -17,11 +18,12 @@ const CalendarContainerComponentView = ({
   month,
   handleDelete,
   newTodoRoute,
-  handleLogout,
   handleChangeTodo
 }: 
   IProps
 ) => {
+  const {handleLogout} = useContext(DropDownContext)
+  const history = useHistory();
   return (
     <S.Wrapper>
       <S.Calendar>
@@ -53,7 +55,10 @@ const CalendarContainerComponentView = ({
           <Link to={ROUTES.NEWTODO_ROUTE}>
             <Button>Add new activity</Button>
           </Link>
-          <Button onClick={handleLogout}>Logout</Button>
+          <Button onClick={() => {
+            handleLogout()
+            history.push(ROUTES.LOGIN_ROUTE)}
+          }>Logout</Button>
         </S.Section>
       </S.Calendar>
     </S.Wrapper>

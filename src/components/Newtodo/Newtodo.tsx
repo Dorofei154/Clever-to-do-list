@@ -1,9 +1,10 @@
-import React, { useState } from "react";
-import { addTodo, useAuth } from "../../firebase";
+import React, { useContext, useState } from "react";
+import { addTodo } from "../../firebase";
 import { useHistory,  } from "react-router-dom";
 import { ROUTES } from "../../constants/constants";
 import moment from "moment";
 import { NewtodoView } from "../views/Newtodo/Newtodo";
+import { DropDownContext } from "../../context/context";
 
 
 
@@ -27,6 +28,7 @@ const NewtodoContainerComponent = ( {location}:{location:{
         )
       : moment()
   );
+  const {useAuth} = useContext(DropDownContext)
   const currentUser = useAuth();
   const history = useHistory();
 

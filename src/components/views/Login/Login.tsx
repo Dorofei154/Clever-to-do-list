@@ -1,4 +1,4 @@
-import React, { FC, memo } from "react";
+import  {  memo, useContext } from "react";
 
 import { EnterForm } from "../../../controls/Form/EnterForm";
 import { FormButton } from "../../../controls/FormButton/FormButton";
@@ -6,11 +6,15 @@ import { FormLink } from "../../../controls/FormLink/FormLink";
 import { S } from "./Login.styles";
 import { IProps } from "./Login.types";
 import { ROUTES } from "../../../constants/constants";
+import { DropDownContext } from "../../../context/context";
+import { useHistory } from "react-router";
 
 function LoginViewComponent({
-  password, email, handleChangePassowrd, handleChangeEmail, handleLogin,
+  password, email, handleChangePassowrd, handleChangeEmail, 
 }: IProps) {
   const text = "Sign In";
+  const history = useHistory();
+  const {handleLogin} = useContext(DropDownContext)
   return (
     <S.Container>
       <EnterForm
@@ -21,7 +25,10 @@ function LoginViewComponent({
         handleChangePassword={handleChangePassowrd} />
       <FormLink text='Registration' link={ROUTES.REGISTER_ROUTE} />
 
-      <FormButton text={text} handleFunction={handleLogin} />
+      <FormButton text={text} handleFunction={() => {
+        handleLogin(email,password)
+        history.push(ROUTES.TODO_ROUTE);
+      }} />
     </S.Container>
   );
 }

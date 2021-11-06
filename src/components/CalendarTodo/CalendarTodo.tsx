@@ -1,10 +1,11 @@
-import React, { useState, useCallback, useEffect } from "react";
-import { getTodo, useAuth, deleteTodo, logout, changeTodo } from "../../firebase";
+import React, { useState, useCallback, useEffect, useContext } from "react";
+import { getTodo, deleteTodo, changeTodo } from "../../firebase";
 import { useHistory } from "react-router-dom";
 import moment from "moment";
 import { ROUTES } from "../../constants/constants";
 import { CalendarTodoView } from "../views/CalendarTodo/CalendarTodo";
 import {DateCellRenderContainer} from '../CellRender/CellRender'
+import { DropDownContext } from "../../context/context";
 
 const CalendarTodoContainerComponent = () => {
   const history = useHistory();
@@ -15,6 +16,7 @@ const CalendarTodoContainerComponent = () => {
   const [arrtodo, setArrtodo] = useState<
   { id: string; data: { id: string; text: string; done:boolean; header: string; date:moment.Moment | number; month :moment.Moment | number }; }[]
   >([]);
+  const {useAuth} = useContext(DropDownContext)
   const currentUser = useAuth();
 
   const handleGetTodos = async () => {
@@ -82,15 +84,7 @@ const CalendarTodoContainerComponent = () => {
     });
     history.push(ROUTES.NEWTODO_ROUTE, res);
   };
-  const handleLogout = async (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-    e.preventDefault();
-    try {
-      await logout();
-      history.push(ROUTES.LOGIN_ROUTE);
-    } catch {
-      alert("Logout is not available");
-    }
-  };
+ 
 
   return (
     <CalendarTodoView
@@ -103,7 +97,7 @@ const CalendarTodoContainerComponent = () => {
       month={month}
       handleDelete={handleDelete}
       newTodoRoute={newTodoRoute}
-      handleLogout={handleLogout}
+    
       handleChangeTodo={handleChangeTodo}
     />
   );

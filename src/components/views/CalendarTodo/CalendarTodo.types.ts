@@ -18,6 +18,5 @@ export interface IProps {
   done: boolean;
   handleDelete: (e: string) => void;
   newTodoRoute: ( e: React.MouseEvent<HTMLLabelElement, MouseEvent>) => void;
-  handleLogout: (e: React.MouseEvent<HTMLElement, MouseEvent>) => Promise<void>;
   handleChangeTodo: (e: string, done:boolean) => void
 }
