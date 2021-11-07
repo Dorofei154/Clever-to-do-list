@@ -1,6 +1,8 @@
+import { RouteComponentProps } from "react-router";
+
 export interface IProps {
   value: moment.Moment;
-  dateCellRender:  (value: moment.Moment) => JSX.Element;
+  dateCellRender: (value: moment.Moment ) => JSX.Element | null ;
   onSelect:(value: moment.Moment) => void
   arrtodo: {
     id: string;
@@ -13,7 +15,9 @@ export interface IProps {
         done:boolean
     };
 }[];
+  history: RouteComponentProps["history"];
   date: number | moment.Moment | undefined;
+  handleLogout: () => void
   month: number | moment.Moment;
   handleDelete: (e: string) => void;
   newTodoRoute: ( e: React.MouseEvent<HTMLLabelElement, MouseEvent>) => void;

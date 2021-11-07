@@ -1,29 +1,28 @@
-import React, { useContext, useState } from "react";
+import React, { memo, useContext, useState } from "react";
 import { addTodo } from "../../firebase";
 import { useHistory,  } from "react-router-dom";
 import { ROUTES } from "../../constants/constants";
 import moment from "moment";
 import { NewtodoView } from "../views/Newtodo/Newtodo";
 import { LoginContext } from "../../context/context";
+import { IProps } from "./Newtodo.types";
 
 
 
 
 
-const NewtodoContainerComponent = ( {location}:{location:{
-  pathname: string; key: string; hash: string; search: string; state: {0:{id:string; data:{date:moment.Moment;month:moment.Moment; done:boolean; res:string; header:string;}}}
-}} ) => {
+const NewtodoContainerComponent = ( {location}: IProps) => {
 
   const changeInfo = location.state;
   const [newTodo, setNewTodo] = useState(
-    changeInfo ? changeInfo[0]["data"]["res"] : ""
+    changeInfo ? changeInfo[0].data.res : ""
   );
-  const [newHeader, setNewHeaeder] = useState(changeInfo ? changeInfo[0]["data"]["header"] : "");
+  const [newHeader, setNewHeaeder] = useState(changeInfo ? changeInfo[0].data.header : "");
   const [newDate, setnewDate] = useState(
     changeInfo
       ? moment(
-          `2021-${Number(changeInfo[0]["data"]["month"])+1}-${
-            changeInfo[0]["data"]["date"]
+          `2021-${Number(changeInfo[0].data.month)+1}-${
+            changeInfo[0].data.date
           }`
         )
       : moment()
@@ -50,7 +49,7 @@ const NewtodoContainerComponent = ( {location}:{location:{
         currentUser?.email,
         String(newDate),
         newHeader,
-        changeInfo ? changeInfo[0]["id"] : String(Date.now())
+        changeInfo ? changeInfo[0].id : String(Date.now())
       );
     }
     
@@ -69,6 +68,6 @@ const NewtodoContainerComponent = ( {location}:{location:{
     />
   );
 };
-export const NewtodoContainer = NewtodoContainerComponent
+export const NewtodoContainer = memo(NewtodoContainerComponent)
 
 

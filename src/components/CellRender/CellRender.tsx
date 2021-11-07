@@ -1,13 +1,14 @@
 
 
-import React from 'react'
 import { Badge } from "antd";
-import {S} from './CellRender.styles'
+import { memo } from "react";
+import {S} from '../../Global.styles'
 import { IProps } from './CellRender.types';
 
 
-const DateCellRenderContainerComponent = (value:IProps['value'], getListData: IProps['getListData']) => {
+const DateCellRenderContainerComponent = ({value, getListData}: IProps) => {
     const listData: { content: string; id: string }[] = getListData(value);
+   
     return (
       <ul>
         {listData.map((item: { content: string; id: string }) => {
@@ -21,4 +22,4 @@ const DateCellRenderContainerComponent = (value:IProps['value'], getListData: IP
     );
   };
 
-export const DateCellRenderContainer = DateCellRenderContainerComponent;
+export const DateCellRenderContainer = memo(DateCellRenderContainerComponent);

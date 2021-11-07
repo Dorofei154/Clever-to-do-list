@@ -1,7 +1,7 @@
 import { Button, Form, Input, DatePicker } from "antd";
 import moment from "moment";
 import { memo } from "react";
-import { S } from "./Newtodo.styles";
+import { S } from "../../../Global.styles";
 import { IProps } from "./Newtodo.types";
 
 export function NewtodoComponent({

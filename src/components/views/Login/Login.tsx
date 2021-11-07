@@ -1,20 +1,17 @@
-import  {  memo, useContext } from "react";
+import  {  memo } from "react";
 
 import { EnterForm } from "../../../controls/Form/EnterForm";
 import { FormButton } from "../../../controls/FormButton/FormButton";
 import { FormLink } from "../../../controls/FormLink/FormLink";
-import { S } from "./Login.styles";
+import { S } from "../../../Global.styles";
 import { IProps } from "./Login.types";
 import { ROUTES } from "../../../constants/constants";
-import { LoginContext } from "../../../context/context";
-import { useHistory } from "react-router";
+
 
 function LoginViewComponent({
-  password, email, handleChangePassowrd, handleChangeEmail, 
+  password, email, handleChangePassowrd, handleChangeEmail,
+  text, history,handleLogin
 }: IProps) {
-  const text = "Sign In";
-  const history = useHistory();
-  const {handleLogin} = useContext(LoginContext)
   return (
     <S.Container>
       <EnterForm

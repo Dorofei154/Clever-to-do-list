@@ -1,13 +1,14 @@
-import React, { memo, useContext } from "react";
+import React, { memo } from "react";
 
 import { AddedToDoContainer } from "../../Addedtodo/Addedtodo";
 import { Calendar, Button } from "antd";
-import { S } from "./CalendarTodo.styles";
-import { Link, useHistory } from "react-router-dom";
+import { S } from "../../../Global.styles";
+import { Link,  } from "react-router-dom";
 
 import { ROUTES } from "../../../constants/constants";
 import { IProps } from "./CalendarTodo.types";
-import { LoginContext } from "../../../context/context";
+import { IArrTodo } from "../../CalendarTodo/arrTodo.types";
+
 
 const CalendarContainerComponentView = ({
   dateCellRender,
@@ -16,21 +17,20 @@ const CalendarContainerComponentView = ({
   arrtodo,
   date,
   month,
+  handleLogout,
+  history,
   handleDelete,
   newTodoRoute,
   handleChangeTodo
 }: 
   IProps
 ) => {
-  const {handleLogout} = useContext(LoginContext)
   
-  const history = useHistory();
     return (
     <S.Wrapper>
       <S.Calendar>
         <Calendar
           dateCellRender={dateCellRender}
-        
           value={value}
           onSelect={onSelect}
         />
@@ -38,7 +38,7 @@ const CalendarContainerComponentView = ({
         <S.Section>
           <S.Ul>
             {arrtodo
-              .filter((item: { id: string; data: { id: string; text: string; header: string; date:moment.Moment | number; month :moment.Moment | number }; }) => {
+              .filter((item: IArrTodo) => {
                 return item.data.date === date && item.data.month === month;
               })
               .map((item,index) => {

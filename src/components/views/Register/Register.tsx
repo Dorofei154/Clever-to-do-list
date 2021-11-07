@@ -1,20 +1,17 @@
-import { memo, useContext } from "react";
-import { S } from "./Register.styles";
+import { memo } from "react";
+import { S } from "../../../Global.styles";
 
 import { EnterForm } from "../../../controls/Form/EnterForm";
 import { FormButton } from "../../../controls/FormButton/FormButton";
 import { FormLink } from "../../../controls/FormLink/FormLink";
 import { ROUTES } from "../../../constants/constants";
-import { LoginContext } from "../../../context/context";
 import { IProps } from "./Register.types";
-import { useHistory } from "react-router";
 
 
 
-const RegisterViewComponent = ({password, email, handleChangeEmail, handleChangePassword}:IProps) => {
-  const text = "Registration";
-  const history = useHistory();
-  const {handleRegistration} = useContext(LoginContext)
+
+const RegisterViewComponent = ({password, email, handleChangeEmail, handleChangePassword, history, handleRegistration, text}:IProps) => {
+ 
   return (
     <S.Container>
       <EnterForm

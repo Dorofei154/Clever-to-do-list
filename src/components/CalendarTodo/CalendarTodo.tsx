@@ -6,14 +6,16 @@ import { ROUTES } from "../../constants/constants";
 import { CalendarTodoView } from "../views/CalendarTodo/CalendarTodo";
 import {DateCellRenderContainer} from '../CellRender/CellRender'
 import { LoginContext } from "../../context/context";
+import { IArrTodo } from "./arrTodo.types";
 
 const CalendarTodoContainerComponent = () => {
   const history = useHistory();
   const [month, setMonth] = useState<moment.Moment | number>(0);
   const [date, setDate] = useState<moment.Moment | number>();
   const [value, setValue] = useState(moment(new Date()));
+  const {handleLogout} = useContext(LoginContext)
   const [arrtodo, setArrtodo] = useState<
-  { id: string; data: { id: string; text: string; done:boolean; header: string; date:moment.Moment | number; month :moment.Moment | number }; }[]
+  IArrTodo[]
   >([]);
   const {useAuth} = useContext(LoginContext)
   const currentUser = useAuth();
@@ -43,7 +45,7 @@ const CalendarTodoContainerComponent = () => {
         e,
         done,
       );
-      setArrtodo(arrtodo.map((item: { id: string; data: { id: string; text: string; done: boolean; header: string; date: number | moment.Moment; month: number | moment.Moment; }; })=>{ 
+      setArrtodo(arrtodo.map((item: IArrTodo)=>{ 
         if(item.id === e){
           return {
             ...item,
@@ -65,7 +67,7 @@ const CalendarTodoContainerComponent = () => {
         if(currentUser?.email){
           deleteTodo(e, currentUser?.email);
         }
-        setArrtodo(arrtodo.filter((item: { id: string; data: { id: string; text: string; header: string; date: number | moment.Moment; month: number | moment.Moment; }; })=>{ 
+        setArrtodo(arrtodo.filter((item: IArrTodo)=>{ 
        return item.id!== e}))
     },
     [arrtodo, currentUser]
@@ -73,7 +75,7 @@ const CalendarTodoContainerComponent = () => {
 
    const getListData = (value: moment.Moment) => {
     const listDatares:{ content: string; id: string }[] = [];
-    arrtodo.forEach((item:{ id: string; data: { id: string; text: string; header: string; date: number | moment.Moment; month: number | moment.Moment; }; }) => {
+    arrtodo.forEach((item: IArrTodo) => {
       if (
         value.date() === item.data.date &&
         value.month() === item.data.month
@@ -90,7 +92,7 @@ const CalendarTodoContainerComponent = () => {
   
   const newTodoRoute = (e: React.MouseEvent<HTMLLabelElement, MouseEvent>) => {
     const targetRes = e.target as HTMLLabelElement;
-    const res = arrtodo.filter((item: { id: string; data: { id: string; text: string; header: string; date:moment.Moment | number; month :moment.Moment | number }; }) => {
+    const res = arrtodo.filter((item: IArrTodo) => {
       return item.id === targetRes.id;
     });
     history.push(ROUTES.NEWTODO_ROUTE, res);
@@ -99,12 +101,14 @@ const CalendarTodoContainerComponent = () => {
 
   return (
     <CalendarTodoView
-      dateCellRender={(e) => DateCellRenderContainer(e, getListData)}
+      dateCellRender={(value) => <DateCellRenderContainer value={value} getListData={getListData}/>}
       value={value}
       onSelect={onSelect}
       arrtodo={arrtodo}
       date={date}
       month={month}
+      history={history}
+      handleLogout={handleLogout}
       handleDelete={handleDelete}
       newTodoRoute={newTodoRoute}
       handleChangeTodo={handleChangeTodo}
