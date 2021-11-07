@@ -3,5 +3,4 @@ export interface IProps {
   email: string;
   handleChangePassowrd: (text: string) => void;
   handleChangeEmail: (text: string) => void;
- 
 }

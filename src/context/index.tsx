@@ -56,20 +56,3 @@ function LoginProviderComponent({ children }: IProviderProps) {
 export const LoginProvider = memo(LoginProviderComponent);
 
 
-
-
-// how to use in components
-// const {setFuncToCloseDropDown, closeAllDropDowns} = useContext(
-//   DropDownContext,
-// );
-
-// Так же нужно обернуть компоненты которые будут использовать этот контекс в провайдер
-
-// было так         <RootNavigation />
-
-// стало так
-//  <DropDownProvider>
-// <RootNavigation />
-// </DropDownProvider>
-
-// теперь во всех компонентах ниже ты можешь использовать useContext и брать нужные тебе функции
