@@ -34,10 +34,10 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "format": "prettier --write \"**/*.+(js|jsx|tsx|ts)\"",
-    "precommit": "lint-staged" ,
-    "eslint": "node_modules/.bin/eslint src/"
+    "precommit": "lint-staged",
+    "eslint": "node_modules/.bin/eslint src/",
+    "prepare": "husky install"
   },
-
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -60,11 +60,10 @@
     "@types/styled-components": "^5.1.15",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
-    "husky": "^7.0.4",
+    "husky": "^7.0.0",
     "lint-staged": "^11.2.6",
     "prettier": "^2.4.1"
   },
- 
   "lint-staged": {
     "*.{ts,tsx}": [
       "node_modules/.bin/eslint --max-warnings=0",
