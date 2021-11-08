@@ -95,7 +95,6 @@ const CalendarTodoContainerComponent = () => {
     history.push(ROUTES.NEWTODO_ROUTE, res);
   };
 
-  const csdgad = '1';
   return (
     <CalendarTodoView
       dateCellRender={(value) => (
