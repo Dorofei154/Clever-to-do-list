@@ -3,12 +3,11 @@ import React, { memo } from "react";
 import { AddedToDoContainer } from "../../Addedtodo/Addedtodo";
 import { Calendar, Button } from "antd";
 import { S } from "../../../Global.styles";
-import { Link,  } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { ROUTES } from "../../../constants/constants";
 import { IProps } from "./CalendarTodo.types";
 import { IArrTodo } from "../../CalendarTodo/arrTodo.types";
-
 
 const CalendarContainerComponentView = ({
   dateCellRender,
@@ -21,12 +20,9 @@ const CalendarContainerComponentView = ({
   history,
   handleDelete,
   newTodoRoute,
-  handleChangeTodo
-}: 
-  IProps
-) => {
-  
-    return (
+  handleChangeTodo,
+}: IProps) => {
+  return (
     <S.Wrapper>
       <S.Calendar>
         <Calendar
@@ -41,7 +37,7 @@ const CalendarContainerComponentView = ({
               .filter((item: IArrTodo) => {
                 return item.data.date === date && item.data.month === month;
               })
-              .map((item,index) => {
+              .map((item, index) => {
                 return (
                   <AddedToDoContainer
                     handleChangeTodo={handleChangeTodo}
@@ -56,10 +52,14 @@ const CalendarContainerComponentView = ({
           <Link to={ROUTES.NEWTODO_ROUTE}>
             <Button>Add new activity</Button>
           </Link>
-          <Button onClick={() => {
-            handleLogout()
-            history.push(ROUTES.LOGIN_ROUTE)}
-          }>Logout</Button>
+          <Button
+            onClick={() => {
+              handleLogout();
+              history.push(ROUTES.LOGIN_ROUTE);
+            }}
+          >
+            Logout
+          </Button>
         </S.Section>
       </S.Calendar>
     </S.Wrapper>

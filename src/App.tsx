@@ -3,13 +3,12 @@ import AppRouter from "./components/Approuter";
 import "antd/dist/antd.css";
 import { LoginProvider } from "./context";
 
-
 function App() {
   return (
     <LoginProvider>
-    <Router>
-      <AppRouter />
-    </Router>
+      <Router>
+        <AppRouter />
+      </Router>
     </LoginProvider>
   );
 }

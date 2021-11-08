@@ -5,7 +5,12 @@ import { S } from "../../../Global.styles";
 import { IProps } from "./Newtodo.types";
 
 export function NewtodoComponent({
-  newHeader, changeInput, newTodo, onChange, changeInfo, Addtodo,
+  newHeader,
+  changeInput,
+  newTodo,
+  onChange,
+  changeInfo,
+  Addtodo,
 }: IProps) {
   const { TextArea } = Input;
   return (
@@ -35,7 +40,8 @@ export function NewtodoComponent({
             id="headertodo"
             value={newHeader}
             defaultValue={newHeader}
-            onChange={changeInput} />
+            onChange={changeInput}
+          />
         </Form.Item>
         <Form.Item
           label="Enter description"
@@ -53,7 +59,8 @@ export function NewtodoComponent({
             value={newTodo}
             defaultValue={newTodo}
             onChange={changeInput}
-            maxLength={100} />
+            maxLength={100}
+          />
         </Form.Item>
 
         <Form.Item
@@ -67,12 +74,15 @@ export function NewtodoComponent({
           ]}
         >
           <DatePicker
-            defaultValue={changeInfo
-              ? moment(
-                `2021-${changeInfo[0]["data"]["month"]}-${changeInfo[0]["data"]["date"]}`
-              )
-              : undefined}
-            onChange={onChange} />
+            defaultValue={
+              changeInfo
+                ? moment(
+                    `2021-${changeInfo[0]["data"]["month"]}-${changeInfo[0]["data"]["date"]}`
+                  )
+                : undefined
+            }
+            onChange={onChange}
+          />
         </Form.Item>
 
         <Form.Item

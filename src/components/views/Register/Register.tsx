@@ -7,11 +7,15 @@ import { FormLink } from "../../../controls/FormLink/FormLink";
 import { ROUTES } from "../../../constants/constants";
 import { IProps } from "./Register.types";
 
-
-
-
-const RegisterViewComponent = ({password, email, handleChangeEmail, handleChangePassword, history, handleRegistration, text}:IProps) => {
- 
+const RegisterViewComponent = ({
+  password,
+  email,
+  handleChangeEmail,
+  handleChangePassword,
+  history,
+  handleRegistration,
+  text,
+}: IProps) => {
   return (
     <S.Container>
       <EnterForm
@@ -21,12 +25,15 @@ const RegisterViewComponent = ({password, email, handleChangeEmail, handleChange
         handleChangeEmail={handleChangeEmail}
         handleChangePassword={handleChangePassword}
       />
-      <FormLink text='Login' link={ROUTES.LOGIN_ROUTE} />
+      <FormLink text="Login" link={ROUTES.LOGIN_ROUTE} />
 
-      <FormButton text={text} handleFunction={() => { 
-        handleRegistration(email,password)
-        history.push(ROUTES.LOGIN_ROUTE)}
-        } />
+      <FormButton
+        text={text}
+        handleFunction={() => {
+          handleRegistration(email, password);
+          history.push(ROUTES.LOGIN_ROUTE);
+        }}
+      />
     </S.Container>
   );
 };

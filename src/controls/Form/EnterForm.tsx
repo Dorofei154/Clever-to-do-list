@@ -28,7 +28,7 @@ const EnterFormComponent = ({
           span: 16,
         }}
       >
-      <Header text={header} />
+        <Header text={header} />
       </Form.Item>
       <FormInput
         value={email}

@@ -1,15 +1,15 @@
 import { onAuthStateChanged, User } from "firebase/auth";
-import React, { memo, useEffect, useState  } from "react";
+import React, { memo, useEffect, useState } from "react";
 
 import { auth, login, logout, signup } from "../firebase";
 import { LoginContext } from "./context";
 import { IProviderProps } from "./types";
 
 function LoginProviderComponent({ children }: IProviderProps) {
-
-
   const useAuth = () => {
-    const [currentUser, setCurrentUser] = useState<User | null | undefined>(null);
+    const [currentUser, setCurrentUser] = useState<User | null | undefined>(
+      null
+    );
     useEffect(() => {
       const unsub = onAuthStateChanged(auth, (user: User | null) => {
         setCurrentUser(user);
@@ -19,7 +19,7 @@ function LoginProviderComponent({ children }: IProviderProps) {
     return currentUser;
   };
 
-  const handleLogin = async (email:string, password: string) => {
+  const handleLogin = async (email: string, password: string) => {
     try {
       await login(email, password);
     } catch (e) {
@@ -28,15 +28,13 @@ function LoginProviderComponent({ children }: IProviderProps) {
   };
   const handleLogout = async () => {
     try {
-      await logout()
+      await logout();
     } catch {
       alert("Logout is not available");
     }
   };
-  const handleRegistration = async (email:string, password: string, ) => {
-      await signup(email, password);
-     
-    
+  const handleRegistration = async (email: string, password: string) => {
+    await signup(email, password);
   };
 
   return (
@@ -45,7 +43,7 @@ function LoginProviderComponent({ children }: IProviderProps) {
         handleRegistration,
         handleLogin,
         handleLogout,
-        useAuth
+        useAuth,
       }}
     >
       {children}
@@ -54,5 +52,3 @@ function LoginProviderComponent({ children }: IProviderProps) {
 }
 
 export const LoginProvider = memo(LoginProviderComponent);
-
-

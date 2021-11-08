@@ -5,7 +5,7 @@ export interface IProps {
   email: string;
   handleChangeEmail: (text: string) => void;
   handleChangePassword: (text: string) => void;
-  text:string,
+  text: string;
   history: RouteComponentProps["history"];
-  handleRegistration: (email: string, password: string) => void
+  handleRegistration: (email: string, password: string) => void;
 }

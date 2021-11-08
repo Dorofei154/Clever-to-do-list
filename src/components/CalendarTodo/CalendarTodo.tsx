@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import moment from "moment";
 import { ROUTES } from "../../constants/constants";
 import { CalendarTodoView } from "../views/CalendarTodo/CalendarTodo";
-import {DateCellRenderContainer} from '../CellRender/CellRender'
+import { DateCellRenderContainer } from "../CellRender/CellRender";
 import { LoginContext } from "../../context/context";
 import { IArrTodo } from "./arrTodo.types";
 
@@ -13,11 +13,9 @@ const CalendarTodoContainerComponent = () => {
   const [month, setMonth] = useState<moment.Moment | number>(0);
   const [date, setDate] = useState<moment.Moment | number>();
   const [value, setValue] = useState(moment(new Date()));
-  const {handleLogout} = useContext(LoginContext)
-  const [arrtodo, setArrtodo] = useState<
-  IArrTodo[]
-  >([]);
-  const {useAuth} = useContext(LoginContext)
+  const { handleLogout } = useContext(LoginContext);
+  const [arrtodo, setArrtodo] = useState<IArrTodo[]>([]);
+  const { useAuth } = useContext(LoginContext);
   const currentUser = useAuth();
 
   const handleGetTodos = async () => {
@@ -29,7 +27,7 @@ const CalendarTodoContainerComponent = () => {
 
   useEffect(() => {
     handleGetTodos();
-  },[currentUser]);
+  }, [currentUser]);
 
   const onSelect = (value: moment.Moment) => {
     setMonth(value.month());
@@ -39,42 +37,43 @@ const CalendarTodoContainerComponent = () => {
 
   const handleChangeTodo = useCallback(
     (e, done) => {
-    if(currentUser?.email){
-      changeTodo(
-        currentUser?.email,
-        e,
-        done,
-      );
-      setArrtodo(arrtodo.map((item: IArrTodo)=>{ 
-        if(item.id === e){
-          return {
-            ...item,
-            data:{
-              ...item.data,
-              done:!item.data.done
+      if (currentUser?.email) {
+        changeTodo(currentUser?.email, e, done);
+        setArrtodo(
+          arrtodo.map((item: IArrTodo) => {
+            if (item.id === e) {
+              return {
+                ...item,
+                data: {
+                  ...item.data,
+                  done: !item.data.done,
+                },
+              };
             }
-          }
-        }
-        return item
-        }))
-    }
-  },
-  [arrtodo, currentUser]
-);
-
-  const handleDelete = useCallback(
-    (e) => {
-        if(currentUser?.email){
-          deleteTodo(e, currentUser?.email);
-        }
-        setArrtodo(arrtodo.filter((item: IArrTodo)=>{ 
-       return item.id!== e}))
+            return item;
+          })
+        );
+      }
     },
     [arrtodo, currentUser]
   );
 
-   const getListData = (value: moment.Moment) => {
-    const listDatares:{ content: string; id: string }[] = [];
+  const handleDelete = useCallback(
+    (e) => {
+      if (currentUser?.email) {
+        deleteTodo(e, currentUser?.email);
+      }
+      setArrtodo(
+        arrtodo.filter((item: IArrTodo) => {
+          return item.id !== e;
+        })
+      );
+    },
+    [arrtodo, currentUser]
+  );
+
+  const getListData = (value: moment.Moment) => {
+    const listDatares: { content: string; id: string }[] = [];
     arrtodo.forEach((item: IArrTodo) => {
       if (
         value.date() === item.data.date &&
@@ -89,7 +88,6 @@ const CalendarTodoContainerComponent = () => {
     return listDatares || [];
   };
 
-  
   const newTodoRoute = (e: React.MouseEvent<HTMLLabelElement, MouseEvent>) => {
     const targetRes = e.target as HTMLLabelElement;
     const res = arrtodo.filter((item: IArrTodo) => {
@@ -97,11 +95,12 @@ const CalendarTodoContainerComponent = () => {
     });
     history.push(ROUTES.NEWTODO_ROUTE, res);
   };
- 
 
   return (
     <CalendarTodoView
-      dateCellRender={(value) => <DateCellRenderContainer value={value} getListData={getListData}/>}
+      dateCellRender={(value) => (
+        <DateCellRenderContainer value={value} getListData={getListData} />
+      )}
       value={value}
       onSelect={onSelect}
       arrtodo={arrtodo}
@@ -117,4 +116,3 @@ const CalendarTodoContainerComponent = () => {
 };
 
 export const CalendarTodoContainer = CalendarTodoContainerComponent;
-

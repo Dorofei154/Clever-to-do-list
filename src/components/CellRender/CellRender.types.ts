@@ -1,5 +1,4 @@
-export interface IProps { 
+export interface IProps {
   value: moment.Moment;
-   getListData: (value: moment.Moment) => { content: string; id: string; }[]; 
-  }
-
+  getListData: (value: moment.Moment) => { content: string; id: string }[];
+}

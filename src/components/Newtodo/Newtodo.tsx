@@ -1,49 +1,47 @@
 import React, { memo, useContext, useState } from "react";
 import { addTodo } from "../../firebase";
-import { useHistory,  } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { ROUTES } from "../../constants/constants";
 import moment from "moment";
 import { NewtodoView } from "../views/Newtodo/Newtodo";
 import { LoginContext } from "../../context/context";
 import { IProps } from "./Newtodo.types";
 
-
-
-
-
-const NewtodoContainerComponent = ( {location}: IProps) => {
-
+const NewtodoContainerComponent = ({ location }: IProps) => {
   const changeInfo = location.state;
   const [newTodo, setNewTodo] = useState(
     changeInfo ? changeInfo[0].data.res : ""
   );
-  const [newHeader, setNewHeaeder] = useState(changeInfo ? changeInfo[0].data.header : "");
+  const [newHeader, setNewHeaeder] = useState(
+    changeInfo ? changeInfo[0].data.header : ""
+  );
   const [newDate, setnewDate] = useState(
     changeInfo
       ? moment(
-          `2021-${Number(changeInfo[0].data.month)+1}-${
+          `2021-${Number(changeInfo[0].data.month) + 1}-${
             changeInfo[0].data.date
           }`
         )
       : moment()
   );
-  const {useAuth} = useContext(LoginContext)
+  const { useAuth } = useContext(LoginContext);
   const currentUser = useAuth();
   const history = useHistory();
 
   const onChange = (value: moment.Moment | null, dateString: string) => {
-   const res = moment(dateString)
+    const res = moment(dateString);
     setnewDate(res);
-  }
-  const changeInput = (e: React.ChangeEvent<HTMLTextAreaElement|HTMLInputElement>) => {
+  };
+  const changeInput = (
+    e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
     e.target.id === "inToDo"
       ? setNewTodo(e.target.value)
       : setNewHeaeder(e.target.value);
   };
   const addtodoHandler = () => {
-    
     history.push(ROUTES.TODO_ROUTE);
-    if(currentUser?.email){
+    if (currentUser?.email) {
       addTodo(
         newTodo,
         currentUser?.email,
@@ -52,10 +50,7 @@ const NewtodoContainerComponent = ( {location}: IProps) => {
         changeInfo ? changeInfo[0].id : String(Date.now())
       );
     }
-    
   };
-
-
 
   return (
     <NewtodoView
@@ -68,6 +63,4 @@ const NewtodoContainerComponent = ( {location}: IProps) => {
     />
   );
 };
-export const NewtodoContainer = memo(NewtodoContainerComponent)
-
-
+export const NewtodoContainer = memo(NewtodoContainerComponent);

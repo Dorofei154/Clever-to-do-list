@@ -1,4 +1,4 @@
-import  { useCallback, useContext, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import { useHistory } from "react-router";
 import { LoginContext } from "../../context/context";
 
@@ -9,7 +9,7 @@ const RegisterContainerComponent = () => {
   const [password, setPassword] = useState("");
   const text = "Registration";
   const history = useHistory();
-  const {handleRegistration} = useContext(LoginContext)
+  const { handleRegistration } = useContext(LoginContext);
   const handleChangePassowrd = useCallback((text: string) => {
     setPassword(text);
   }, []);
@@ -17,7 +17,6 @@ const RegisterContainerComponent = () => {
   const handleChangeEmail = useCallback((text: string) => {
     setEmail(text);
   }, []);
-
 
   return (
     <RegisterView
@@ -33,4 +32,3 @@ const RegisterContainerComponent = () => {
 };
 
 export const RegisterContainer = RegisterContainerComponent;
-

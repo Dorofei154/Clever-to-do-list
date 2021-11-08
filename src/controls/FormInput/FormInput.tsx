@@ -9,7 +9,7 @@ const FormInputComponent = ({
   value,
   defaultValue = "",
   type,
-}:IProps) => {
+}: IProps) => {
   return (
     <Form.Item
       label={`Enter ${label}`}

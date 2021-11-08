@@ -36,8 +36,8 @@ export const S = {
       cursor: pointer;
     }
   `,
-    Span: styled.span``,
-    Container: styled.div`
+  Span: styled.span``,
+  Container: styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;

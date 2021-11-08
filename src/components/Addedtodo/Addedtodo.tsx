@@ -8,16 +8,16 @@ const AddedToDoContainerComponent = ({
   handleDelete,
   handleChange,
   handleChangeTodo,
-}: IProps ) => { 
-    const handleWrapperChangeTodo = () => { 
-      return handleChangeTodo( id, data.done)
-    }
+}: IProps) => {
+  const handleWrapperChangeTodo = () => {
+    return handleChangeTodo(id, data.done);
+  };
 
-    const handleWrapperHandleDelete = () => { 
-      return handleDelete(id)
-    }
-    
-    return (
+  const handleWrapperHandleDelete = () => {
+    return handleDelete(id);
+  };
+
+  return (
     <S.Div>
       <Checkbox checked={data.done} onClick={handleWrapperChangeTodo} />
       <S.Label id={id} onClick={handleChange}>

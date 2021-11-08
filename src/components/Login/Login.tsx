@@ -1,7 +1,4 @@
-import  { useCallback, useContext, useState } from "react";
-
-
-
+import { useCallback, useContext, useState } from "react";
 
 import { LoginView } from "../views/Login/Login";
 import { useHistory } from "react-router";
@@ -11,7 +8,7 @@ const LoginContainerComponent = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const history = useHistory();
-  const {handleLogin} = useContext(LoginContext)
+  const { handleLogin } = useContext(LoginContext);
   const handleChangePassowrd = useCallback((text: string) => {
     setPassword(text);
   }, []);
@@ -20,12 +17,11 @@ const LoginContainerComponent = () => {
     setEmail(text);
   }, []);
 
-
   return (
     <LoginView
       password={password}
       email={email}
-      text='Sign in'
+      text="Sign in"
       history={history}
       handleLogin={handleLogin}
       handleChangePassowrd={handleChangePassowrd}
