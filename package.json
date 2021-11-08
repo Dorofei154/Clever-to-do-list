@@ -25,7 +25,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "npm run eslint"
     }
   },
   "scripts": {
@@ -34,10 +34,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "format": "prettier --write \"**/*.+(js|jsx|tsx|ts)\"",
-    "precommit": "lint-staged" ,
+    "precommit": "lint-staged",
     "eslint": "node_modules/.bin/eslint src/"
   },
-
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -56,7 +55,6 @@
       "last 1 safari version"
     ]
   },
-  "pre-commit":"lint-staged",
   "devDependencies": {
     "@types/styled-components": "^5.1.15",
     "eslint-config-prettier": "^8.3.0",
@@ -64,12 +62,5 @@
     "husky": "^7.0.4",
     "lint-staged": "^11.2.6",
     "prettier": "^2.4.1"
-  },
- 
-  "lint-staged": {
-    "*.{ts,tsx}": [
-      "node_modules/.bin/eslint --max-warnings=0",
-      "prettier --write"
-    ]
   }
 }
