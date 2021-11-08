@@ -94,7 +94,6 @@ const CalendarTodoContainerComponent = () => {
     });
     history.push(ROUTES.NEWTODO_ROUTE, res);
   };
-
   return (
     <CalendarTodoView
       dateCellRender={(value) => (
