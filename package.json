@@ -25,7 +25,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run eslint"
+      "pre-commit": "lint-staged"
     }
   },
   "scripts": {
@@ -34,9 +34,10 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "format": "prettier --write \"**/*.+(js|jsx|tsx|ts)\"",
-    "precommit": "lint-staged",
+    "precommit": "lint-staged" ,
     "eslint": "node_modules/.bin/eslint src/"
   },
+
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -62,5 +63,12 @@
     "husky": "^7.0.4",
     "lint-staged": "^11.2.6",
     "prettier": "^2.4.1"
+  },
+ 
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "node_modules/.bin/eslint --max-warnings=0",
+      "prettier --write"
+    ]
   }
 }
