@@ -1,31 +1,31 @@
-import { Form } from "antd";
-import { memo } from "react";
-import { IProps } from "./EnterForm.types";
-import { FormInput } from "../FormInput/FormInput";
-import { Header } from "../Header/Header";
+import { Form } from 'antd';
+import { memo } from 'react';
+import { IProps } from './EnterForm.types';
+import { FormInput } from '../FormInput/FormInput';
+import { Header } from '../Header/Header';
 
 const EnterFormComponent = ({
   header,
   email,
   password,
   handleChangeEmail,
-  handleChangePassword,
+  handleChangePassword
 }: IProps) => {
   return (
     <Form
       name="EnterFormComponent"
       labelCol={{
-        span: 8,
+        span: 8
       }}
       wrapperCol={{
         offset: 1,
-        span: 8,
+        span: 8
       }}
     >
       <Form.Item
         wrapperCol={{
           offset: 12,
-          span: 16,
+          span: 16
         }}
       >
         <Header text={header} />

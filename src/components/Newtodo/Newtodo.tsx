@@ -1,19 +1,19 @@
-import React, { memo, useContext, useState } from "react";
-import { addTodo } from "../../firebase";
-import { useHistory } from "react-router-dom";
-import { ROUTES } from "../../constants/constants";
-import moment from "moment";
-import { NewtodoView } from "../views/Newtodo/Newtodo";
-import { LoginContext } from "../../context/context";
-import { IProps } from "./Newtodo.types";
+import React, { memo, useContext, useState } from 'react';
+import { addTodo } from '../../firebase';
+import { useHistory } from 'react-router-dom';
+import { ROUTES } from '../../constants/constants';
+import moment from 'moment';
+import { NewtodoView } from '../views/Newtodo/Newtodo';
+import { LoginContext } from '../../context/context';
+import { IProps } from './Newtodo.types';
 
 const NewtodoContainerComponent = ({ location }: IProps) => {
   const changeInfo = location.state;
   const [newTodo, setNewTodo] = useState(
-    changeInfo ? changeInfo[0].data.res : ""
+    changeInfo ? changeInfo[0].data.res : ''
   );
   const [newHeader, setNewHeaeder] = useState(
-    changeInfo ? changeInfo[0].data.header : ""
+    changeInfo ? changeInfo[0].data.header : ''
   );
   const [newDate, setnewDate] = useState(
     changeInfo
@@ -35,7 +35,7 @@ const NewtodoContainerComponent = ({ location }: IProps) => {
   const changeInput = (
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => {
-    e.target.id === "inToDo"
+    e.target.id === 'inToDo'
       ? setNewTodo(e.target.value)
       : setNewHeaeder(e.target.value);
   };

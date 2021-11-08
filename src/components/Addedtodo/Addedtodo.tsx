@@ -1,13 +1,13 @@
-import { Checkbox } from "antd";
-import { memo } from "react";
-import { S } from "../../Global.styles";
-import { IProps } from "./Addedtodo.types";
+import { Checkbox } from 'antd';
+import { memo } from 'react';
+import { S } from '../../Global.styles';
+import { IProps } from './Addedtodo.types';
 
 const AddedToDoContainerComponent = ({
   item: { id, data },
   handleDelete,
   handleChange,
-  handleChangeTodo,
+  handleChangeTodo
 }: IProps) => {
   const handleWrapperChangeTodo = () => {
     return handleChangeTodo(id, data.done);

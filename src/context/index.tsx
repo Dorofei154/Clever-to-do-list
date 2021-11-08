@@ -1,9 +1,9 @@
-import { onAuthStateChanged, User } from "firebase/auth";
-import React, { memo, useEffect, useState } from "react";
+import { onAuthStateChanged, User } from 'firebase/auth';
+import React, { memo, useEffect, useState } from 'react';
 
-import { auth, login, logout, signup } from "../firebase";
-import { LoginContext } from "./context";
-import { IProviderProps } from "./types";
+import { auth, login, logout, signup } from '../firebase';
+import { LoginContext } from './context';
+import { IProviderProps } from './types';
 
 function LoginProviderComponent({ children }: IProviderProps) {
   const useAuth = () => {
@@ -23,14 +23,14 @@ function LoginProviderComponent({ children }: IProviderProps) {
     try {
       await login(email, password);
     } catch (e) {
-      alert("Invalid data");
+      alert('Invalid data');
     }
   };
   const handleLogout = async () => {
     try {
       await logout();
     } catch {
-      alert("Logout is not available");
+      alert('Logout is not available');
     }
   };
   const handleRegistration = async (email: string, password: string) => {
@@ -43,7 +43,7 @@ function LoginProviderComponent({ children }: IProviderProps) {
         handleRegistration,
         handleLogin,
         handleLogout,
-        useAuth,
+        useAuth
       }}
     >
       {children}

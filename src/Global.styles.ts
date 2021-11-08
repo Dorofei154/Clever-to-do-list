@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const S = {
   Calendar: styled.div`
@@ -43,5 +43,5 @@ export const S = {
     justify-content: center;
     width: 100vw;
     height: 100vh;
-  `,
+  `
 };

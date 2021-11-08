@@ -1,13 +1,13 @@
-import React, { memo } from "react";
+import React, { memo } from 'react';
 
-import { AddedToDoContainer } from "../../Addedtodo/Addedtodo";
-import { Calendar, Button } from "antd";
-import { S } from "../../../Global.styles";
-import { Link } from "react-router-dom";
+import { AddedToDoContainer } from '../../Addedtodo/Addedtodo';
+import { Calendar, Button } from 'antd';
+import { S } from '../../../Global.styles';
+import { Link } from 'react-router-dom';
 
-import { ROUTES } from "../../../constants/constants";
-import { IProps } from "./CalendarTodo.types";
-import { IArrTodo } from "../../CalendarTodo/arrTodo.types";
+import { ROUTES } from '../../../constants/constants';
+import { IProps } from './CalendarTodo.types';
+import { IArrTodo } from '../../CalendarTodo/arrTodo.types';
 
 const CalendarContainerComponentView = ({
   dateCellRender,
@@ -20,7 +20,7 @@ const CalendarContainerComponentView = ({
   history,
   handleDelete,
   newTodoRoute,
-  handleChangeTodo,
+  handleChangeTodo
 }: IProps) => {
   return (
     <S.Wrapper>

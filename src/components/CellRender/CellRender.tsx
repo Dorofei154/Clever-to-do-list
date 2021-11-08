@@ -1,7 +1,7 @@
-import { Badge } from "antd";
-import { memo } from "react";
-import { S } from "../../Global.styles";
-import { IProps } from "./CellRender.types";
+import { Badge } from 'antd';
+import { memo } from 'react';
+import { S } from '../../Global.styles';
+import { IProps } from './CellRender.types';
 
 const DateCellRenderContainerComponent = ({ value, getListData }: IProps) => {
   const listData: { content: string; id: string }[] = getListData(value);

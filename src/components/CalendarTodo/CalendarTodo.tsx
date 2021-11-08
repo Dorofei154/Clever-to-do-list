@@ -1,12 +1,12 @@
-import React, { useState, useCallback, useEffect, useContext } from "react";
-import { getTodo, deleteTodo, changeTodo } from "../../firebase";
-import { useHistory } from "react-router-dom";
-import moment from "moment";
-import { ROUTES } from "../../constants/constants";
-import { CalendarTodoView } from "../views/CalendarTodo/CalendarTodo";
-import { DateCellRenderContainer } from "../CellRender/CellRender";
-import { LoginContext } from "../../context/context";
-import { IArrTodo } from "./arrTodo.types";
+import React, { useState, useCallback, useEffect, useContext } from 'react';
+import { getTodo, deleteTodo, changeTodo } from '../../firebase';
+import { useHistory } from 'react-router-dom';
+import moment from 'moment';
+import { ROUTES } from '../../constants/constants';
+import { CalendarTodoView } from '../views/CalendarTodo/CalendarTodo';
+import { DateCellRenderContainer } from '../CellRender/CellRender';
+import { LoginContext } from '../../context/context';
+import { IArrTodo } from './arrTodo.types';
 
 const CalendarTodoContainerComponent = () => {
   const history = useHistory();
@@ -18,14 +18,13 @@ const CalendarTodoContainerComponent = () => {
   const { useAuth } = useContext(LoginContext);
   const currentUser = useAuth();
 
-  const handleGetTodos = async () => {
-    if (currentUser?.email) {
-      const todos = await getTodo(currentUser.email);
-      setArrtodo(todos);
-    }
-  };
-
   useEffect(() => {
+    const handleGetTodos = async () => {
+      if (currentUser?.email) {
+        const todos = await getTodo(currentUser.email);
+        setArrtodo(todos);
+      }
+    };
     handleGetTodos();
   }, [currentUser]);
 
@@ -46,8 +45,8 @@ const CalendarTodoContainerComponent = () => {
                 ...item,
                 data: {
                   ...item.data,
-                  done: !item.data.done,
-                },
+                  done: !item.data.done
+                }
               };
             }
             return item;
@@ -81,7 +80,7 @@ const CalendarTodoContainerComponent = () => {
       ) {
         listDatares.push({
           content: item.data.header,
-          id: item.id,
+          id: item.id
         });
       }
     });
@@ -89,9 +88,9 @@ const CalendarTodoContainerComponent = () => {
   };
 
   const newTodoRoute = (e: React.MouseEvent<HTMLLabelElement, MouseEvent>) => {
-    const targetRes = e.target as HTMLLabelElement;
+    const resId = e.target as HTMLLabelElement;
     const res = arrtodo.filter((item: IArrTodo) => {
-      return item.id === targetRes.id;
+      return item.id === resId.id;
     });
     history.push(ROUTES.NEWTODO_ROUTE, res);
   };

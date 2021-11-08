@@ -1,14 +1,14 @@
-import { Form, Input } from "antd";
-import { memo } from "react";
-import { IProps } from "./FormInput.types";
+import { Form, Input } from 'antd';
+import { memo } from 'react';
+import { IProps } from './FormInput.types';
 
 const FormInputComponent = ({
   label,
   ruleMessage,
   onChangeHandle,
   value,
-  defaultValue = "",
-  type,
+  defaultValue = '',
+  type
 }: IProps) => {
   return (
     <Form.Item
@@ -18,8 +18,8 @@ const FormInputComponent = ({
       rules={[
         {
           required: true,
-          message: `Please enter ${ruleMessage}!`,
-        },
+          message: `Please enter ${ruleMessage}!`
+        }
       ]}
     >
       <Input

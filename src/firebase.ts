@@ -1,11 +1,11 @@
-import { initializeApp } from "firebase/app";
+import { initializeApp } from 'firebase/app';
 
 import {
   getAuth,
   createUserWithEmailAndPassword,
   signOut,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+  signInWithEmailAndPassword
+} from 'firebase/auth';
 
 import {
   getFirestore,
@@ -14,8 +14,8 @@ import {
   doc,
   getDocs,
   deleteDoc,
-  updateDoc,
-} from "firebase/firestore";
+  updateDoc
+} from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -23,7 +23,7 @@ const firebaseConfig = {
   projectId: process.env.REACT_APP_PROJECT_ID,
   storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_APP_ID,
+  appId: process.env.REACT_APP_APP_ID
 };
 
 const app = initializeApp(firebaseConfig);
@@ -47,13 +47,13 @@ const addTodo = async (
     res: text,
     done: false,
     month: dateRes.getMonth(),
-    date: dateRes.getDate(),
+    date: dateRes.getDate()
   });
 };
 
 const changeTodo = async (email: string, index: string, done: boolean) => {
   await updateDoc(doc(db, email, index), {
-    done: !done,
+    done: !done
   });
 };
 
@@ -73,7 +73,7 @@ const getTodo = async (email: string) => {
   querySnapshot.forEach((doc: any) => {
     arr.push({
       id: doc.id,
-      data: doc.data(),
+      data: doc.data()
     });
   });
   return arr;
@@ -97,5 +97,5 @@ export {
   signup,
   login,
   addTodo,
-  changeTodo,
+  changeTodo
 };

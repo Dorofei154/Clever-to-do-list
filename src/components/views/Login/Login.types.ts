@@ -1,4 +1,4 @@
-import { RouteComponentProps } from "react-router";
+import { RouteComponentProps } from 'react-router';
 
 export interface IProps {
   password: string;
@@ -6,6 +6,6 @@ export interface IProps {
   handleChangePassowrd: (text: string) => void;
   handleChangeEmail: (text: string) => void;
   text: string;
-  history: RouteComponentProps["history"];
+  history: RouteComponentProps['history'];
   handleLogin: (email: string, password: string) => void;
 }

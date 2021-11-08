@@ -1,11 +1,11 @@
-import { memo } from "react";
+import { memo } from 'react';
 
-import { EnterForm } from "../../../controls/Form/EnterForm";
-import { FormButton } from "../../../controls/FormButton/FormButton";
-import { FormLink } from "../../../controls/FormLink/FormLink";
-import { S } from "../../../Global.styles";
-import { IProps } from "./Login.types";
-import { ROUTES } from "../../../constants/constants";
+import { EnterForm } from '../../../controls/Form/EnterForm';
+import { FormButton } from '../../../controls/FormButton/FormButton';
+import { FormLink } from '../../../controls/FormLink/FormLink';
+import { S } from '../../../Global.styles';
+import { IProps } from './Login.types';
+import { ROUTES } from '../../../constants/constants';
 
 function LoginViewComponent({
   password,
@@ -14,7 +14,7 @@ function LoginViewComponent({
   handleChangeEmail,
   text,
   history,
-  handleLogin,
+  handleLogin
 }: IProps) {
   return (
     <S.Container>

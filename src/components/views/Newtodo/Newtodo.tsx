@@ -1,8 +1,8 @@
-import { Button, Form, Input, DatePicker } from "antd";
-import moment from "moment";
-import { memo } from "react";
-import { S } from "../../../Global.styles";
-import { IProps } from "./Newtodo.types";
+import { Button, Form, Input, DatePicker } from 'antd';
+import moment from 'moment';
+import { memo } from 'react';
+import { S } from '../../../Global.styles';
+import { IProps } from './Newtodo.types';
 
 export function NewtodoComponent({
   newHeader,
@@ -10,7 +10,7 @@ export function NewtodoComponent({
   newTodo,
   onChange,
   changeInfo,
-  Addtodo,
+  Addtodo
 }: IProps) {
   const { TextArea } = Input;
   return (
@@ -18,11 +18,11 @@ export function NewtodoComponent({
       <Form
         name="basic"
         labelCol={{
-          span: 8,
+          span: 8
         }}
         wrapperCol={{
           offset: 1,
-          span: 8,
+          span: 8
         }}
         autoComplete="off"
       >
@@ -32,8 +32,8 @@ export function NewtodoComponent({
           rules={[
             {
               required: true,
-              message: "Please enter header!",
-            },
+              message: 'Please enter header!'
+            }
           ]}
         >
           <Input
@@ -49,8 +49,8 @@ export function NewtodoComponent({
           rules={[
             {
               required: true,
-              message: "Please enter description!",
-            },
+              message: 'Please enter description!'
+            }
           ]}
         >
           <TextArea
@@ -69,15 +69,15 @@ export function NewtodoComponent({
           rules={[
             {
               required: true,
-              message: "Please enter description!",
-            },
+              message: 'Please enter description!'
+            }
           ]}
         >
           <DatePicker
             defaultValue={
               changeInfo
                 ? moment(
-                    `2021-${changeInfo[0]["data"]["month"]}-${changeInfo[0]["data"]["date"]}`
+                    `2021-${changeInfo[0]['data']['month']}-${changeInfo[0]['data']['date']}`
                   )
                 : undefined
             }
@@ -88,11 +88,11 @@ export function NewtodoComponent({
         <Form.Item
           wrapperCol={{
             offset: 12,
-            span: 16,
+            span: 16
           }}
         >
           <Button type="primary" onClick={Addtodo}>
-            {changeInfo ? "Update" : "Save"}
+            {changeInfo ? 'Update' : 'Save'}
           </Button>
         </Form.Item>
       </Form>

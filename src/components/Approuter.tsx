@@ -1,5 +1,5 @@
-import { Route, Switch } from "react-router-dom";
-import { routes } from "../router/index";
+import { Route, Switch } from 'react-router-dom';
+import { routes } from '../router/index';
 
 export default function AppRouter() {
   return (

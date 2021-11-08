@@ -1,11 +1,11 @@
-import { memo } from "react";
-import { S } from "../../../Global.styles";
+import { memo } from 'react';
+import { S } from '../../../Global.styles';
 
-import { EnterForm } from "../../../controls/Form/EnterForm";
-import { FormButton } from "../../../controls/FormButton/FormButton";
-import { FormLink } from "../../../controls/FormLink/FormLink";
-import { ROUTES } from "../../../constants/constants";
-import { IProps } from "./Register.types";
+import { EnterForm } from '../../../controls/Form/EnterForm';
+import { FormButton } from '../../../controls/FormButton/FormButton';
+import { FormLink } from '../../../controls/FormLink/FormLink';
+import { ROUTES } from '../../../constants/constants';
+import { IProps } from './Register.types';
 
 const RegisterViewComponent = ({
   password,
@@ -14,7 +14,7 @@ const RegisterViewComponent = ({
   handleChangePassword,
   history,
   handleRegistration,
-  text,
+  text
 }: IProps) => {
   return (
     <S.Container>

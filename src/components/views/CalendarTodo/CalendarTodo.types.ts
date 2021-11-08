@@ -1,4 +1,4 @@
-import { RouteComponentProps } from "react-router";
+import { RouteComponentProps } from 'react-router';
 
 export interface IProps {
   value: moment.Moment;
@@ -15,7 +15,7 @@ export interface IProps {
       done: boolean;
     };
   }[];
-  history: RouteComponentProps["history"];
+  history: RouteComponentProps['history'];
   date: number | moment.Moment | undefined;
   handleLogout: () => void;
   month: number | moment.Moment;
