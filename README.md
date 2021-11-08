@@ -15,4 +15,4 @@
 4.Application stack
  * Firebase
  * Typescript
- 
+ [Netlify](https://flamboyant-lichterman-af789d.netlify.app/)
