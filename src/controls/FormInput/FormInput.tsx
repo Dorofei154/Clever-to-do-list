@@ -24,6 +24,7 @@ const FormInputComponent = ({
     >
       <Input
         value={value}
+        onFocus={(e) => onChangeHandle(e.target.value)}
         onChange={(e) => onChangeHandle(e.target.value)}
         type={type}
       />

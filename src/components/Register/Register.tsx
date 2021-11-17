@@ -1,32 +1,37 @@
-import { useCallback, useContext, useState } from 'react';
+import { useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { LoginContext } from '../../context/context';
+import { emailCreator } from '../../store/actionCreators/emailCreator';
+import { passwordCreator } from '../../store/actionCreators/passwordCreator';
 
 import { RegisterView } from '../views/Register/Register';
 
 const RegisterContainerComponent = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
+  const state = useSelector((state: any) => state);
+  const setPassword = (e: any) => {
+    dispatch(passwordCreator(e));
+    console.log(state.password);
+  };
+  const setEmail = (e: any) => {
+    dispatch(emailCreator(e));
+    console.log(state.login);
+  };
+
   const text = 'Registration';
   const history = useHistory();
   const { handleRegistration } = useContext(LoginContext);
-  const handleChangePassowrd = useCallback((text: string) => {
-    setPassword(text);
-  }, []);
-
-  const handleChangeEmail = useCallback((text: string) => {
-    setEmail(text);
-  }, []);
 
   return (
     <RegisterView
-      password={password}
-      email={email}
+      password={state.password}
+      email={state.email}
       text={text}
       handleRegistration={handleRegistration}
       history={history}
-      handleChangeEmail={handleChangeEmail}
-      handleChangePassword={handleChangePassowrd}
+      handleChangeEmail={setEmail}
+      handleChangePassword={setPassword}
     />
   );
 };

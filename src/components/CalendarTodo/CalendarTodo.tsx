@@ -1,21 +1,44 @@
-import React, { useState, useCallback, useEffect, useContext } from 'react';
+import React, { useCallback, useEffect, useContext, useState } from 'react';
 import { getTodo, deleteTodo, changeTodo } from '../../firebase';
 import { useHistory } from 'react-router-dom';
 import moment from 'moment';
+
 import { ROUTES } from '../../constants/constants';
 import { CalendarTodoView } from '../views/CalendarTodo/CalendarTodo';
 import { DateCellRenderContainer } from '../CellRender/CellRender';
 import { LoginContext } from '../../context/context';
 import { IArrTodo } from './arrTodo.types';
+import { useDispatch, useSelector } from 'react-redux';
+import { monthCreator } from '../../store/actionCreators/monthCreator';
+import { dateCreator } from '../../store/actionCreators/dateCreator';
+import { valueCreator } from '../../store/actionCreators/valueCreator';
 
 const CalendarTodoContainerComponent = () => {
+  const dispatch = useDispatch();
+  const state = useSelector((state: any) => state);
   const history = useHistory();
-  const [month, setMonth] = useState<moment.Moment | number>(0);
-  const [date, setDate] = useState<moment.Moment | number>();
-  const [value, setValue] = useState(moment(new Date()));
-  const { handleLogout } = useContext(LoginContext);
+
+  const setMonth = (e: any) => {
+    dispatch(monthCreator(e));
+  };
+  const setDate = (e: any) => {
+    dispatch(dateCreator(e));
+    console.log(state);
+  };
+
+  const setValue = (e: any) => {
+    dispatch(valueCreator(e));
+    console.log(state.date);
+  };
+
+  // const setArrtodo = (e: any) => {
+  //   dispatch(arrtodoCreator(e));
+  //   console.log(state.arrtodo);
+  // };
+
+  const { handleLogout, useAuth } = useContext(LoginContext);
   const [arrtodo, setArrtodo] = useState<IArrTodo[]>([]);
-  const { useAuth } = useContext(LoginContext);
+
   const currentUser = useAuth();
 
   useEffect(() => {
@@ -29,6 +52,7 @@ const CalendarTodoContainerComponent = () => {
   }, [currentUser]);
 
   const onSelect = (value: moment.Moment) => {
+    console.log(value.date());
     setMonth(value.month());
     setDate(value.date());
     setValue(value);
@@ -99,11 +123,11 @@ const CalendarTodoContainerComponent = () => {
       dateCellRender={(value) => (
         <DateCellRenderContainer value={value} getListData={getListData} />
       )}
-      value={value}
+      value={state.value}
       onSelect={onSelect}
       arrtodo={arrtodo}
-      date={date}
-      month={month}
+      date={state.date}
+      month={state.month}
       history={history}
       handleLogout={handleLogout}
       handleDelete={handleDelete}

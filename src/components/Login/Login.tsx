@@ -1,32 +1,39 @@
-import { useCallback, useContext, useState } from 'react';
+import { useContext } from 'react';
 
 import { LoginView } from '../views/Login/Login';
 import { useHistory } from 'react-router';
 import { LoginContext } from '../../context/context';
+import { useDispatch, useSelector } from 'react-redux';
+import { passwordCreator } from '../../store/actionCreators/passwordCreator';
+import { emailCreator } from '../../store/actionCreators/emailCreator';
 
 const LoginContainerComponent = () => {
-  const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
+  const dispatch = useDispatch();
+  const state = useSelector((state: any) => state);
+  const setPassword = (e: any) => {
+    dispatch(passwordCreator(e));
+    console.log(state.password);
+  };
+  const setLogin = (e: any) => {
+    dispatch(emailCreator(e));
+    console.log(state.email);
+  };
   const history = useHistory();
   const { handleLogin } = useContext(LoginContext);
-  const handleChangePassowrd = useCallback((text: string) => {
-    setPassword(text);
-  }, []);
-
-  const handleChangeEmail = useCallback((text: string) => {
-    setEmail(text);
-  }, []);
 
   return (
-    <LoginView
-      password={password}
-      email={email}
-      text="Sign in"
-      history={history}
-      handleLogin={handleLogin}
-      handleChangePassowrd={handleChangePassowrd}
-      handleChangeEmail={handleChangeEmail}
-    />
+    <>
+      <LoginView
+        password={state.password}
+        email={state.email}
+        text="Sign in"
+        history={history}
+        handleLogin={handleLogin}
+        handleChangePassowrd={setPassword}
+        handleChangeEmail={setLogin}
+      />
+    </>
   );
 };
+
 export const LoginContainer = LoginContainerComponent;

@@ -21,6 +21,7 @@ function LoginProviderComponent({ children }: IProviderProps) {
 
   const handleLogin = async (email: string, password: string) => {
     try {
+      console.log(email, password);
       await login(email, password);
     } catch (e) {
       alert('Invalid data');
