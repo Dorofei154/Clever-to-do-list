@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useContext, useState } from 'react';
+import React, { useCallback, useEffect, useContext } from 'react';
 import { getTodo, deleteTodo, changeTodo } from '../../firebase';
 import { useHistory } from 'react-router-dom';
 import moment from 'moment';
@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { monthCreator } from '../../store/actionCreators/monthCreator';
 import { dateCreator } from '../../store/actionCreators/dateCreator';
 import { valueCreator } from '../../store/actionCreators/valueCreator';
+import { arrtodoCreator } from '../../store/actionCreators/arrtodoCreator';
 
 const CalendarTodoContainerComponent = () => {
   const dispatch = useDispatch();
@@ -23,21 +24,20 @@ const CalendarTodoContainerComponent = () => {
   };
   const setDate = (e: any) => {
     dispatch(dateCreator(e));
-    console.log(state);
   };
 
   const setValue = (e: any) => {
     dispatch(valueCreator(e));
-    console.log(state.date);
   };
 
-  // const setArrtodo = (e: any) => {
-  //   dispatch(arrtodoCreator(e));
-  //   console.log(state.arrtodo);
-  // };
+  const setArrtodo = useCallback(
+    (e: any) => {
+      dispatch(arrtodoCreator(e));
+    },
+    [dispatch]
+  );
 
   const { handleLogout, useAuth } = useContext(LoginContext);
-  const [arrtodo, setArrtodo] = useState<IArrTodo[]>([]);
 
   const currentUser = useAuth();
 
@@ -49,10 +49,9 @@ const CalendarTodoContainerComponent = () => {
       }
     };
     handleGetTodos();
-  }, [currentUser]);
+  }, [currentUser, setArrtodo]);
 
   const onSelect = (value: moment.Moment) => {
-    console.log(value.date());
     setMonth(value.month());
     setDate(value.date());
     setValue(value);
@@ -63,7 +62,7 @@ const CalendarTodoContainerComponent = () => {
       if (currentUser?.email) {
         changeTodo(currentUser?.email, e, done);
         setArrtodo(
-          arrtodo.map((item: IArrTodo) => {
+          state.arrtodo.map((item: IArrTodo) => {
             if (item.id === e) {
               return {
                 ...item,
@@ -78,7 +77,7 @@ const CalendarTodoContainerComponent = () => {
         );
       }
     },
-    [arrtodo, currentUser]
+    [state.arrtodo, currentUser, setArrtodo]
   );
 
   const handleDelete = useCallback(
@@ -87,17 +86,17 @@ const CalendarTodoContainerComponent = () => {
         deleteTodo(e, currentUser?.email);
       }
       setArrtodo(
-        arrtodo.filter((item: IArrTodo) => {
+        state.arrtodo.filter((item: IArrTodo) => {
           return item.id !== e;
         })
       );
     },
-    [arrtodo, currentUser]
+    [state.arrtodo, currentUser, setArrtodo]
   );
 
   const getListData = (value: moment.Moment) => {
     const listDatares: { content: string; id: string }[] = [];
-    arrtodo.forEach((item: IArrTodo) => {
+    state.arrtodo.forEach((item: IArrTodo) => {
       if (
         value.date() === item.data.date &&
         value.month() === item.data.month
@@ -113,7 +112,7 @@ const CalendarTodoContainerComponent = () => {
 
   const newTodoRoute = (e: React.MouseEvent<HTMLLabelElement, MouseEvent>) => {
     const resId = e.target as HTMLLabelElement;
-    const res = arrtodo.filter((item: IArrTodo) => {
+    const res = state.arrtodo.filter((item: IArrTodo) => {
       return item.id === resId.id;
     });
     history.push(ROUTES.NEWTODO_ROUTE, res);
@@ -125,7 +124,7 @@ const CalendarTodoContainerComponent = () => {
       )}
       value={state.value}
       onSelect={onSelect}
-      arrtodo={arrtodo}
+      arrtodo={state.arrtodo}
       date={state.date}
       month={state.month}
       history={history}

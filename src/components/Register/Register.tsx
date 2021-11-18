@@ -12,11 +12,9 @@ const RegisterContainerComponent = () => {
   const state = useSelector((state: any) => state);
   const setPassword = (e: any) => {
     dispatch(passwordCreator(e));
-    console.log(state.password);
   };
   const setEmail = (e: any) => {
     dispatch(emailCreator(e));
-    console.log(state.login);
   };
 
   const text = 'Registration';

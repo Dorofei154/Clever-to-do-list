@@ -46,9 +46,45 @@ const reducerValue = (state = moment(new Date()), action: any) => {
   }
 };
 
-const reducerTodo = (state = [], action: any) => {
+const reducerCurrentUser = (state = null, action: any) => {
   switch (action.type) {
-    case ACTIONS.SET_VALUE:
+    case ACTIONS.SET_CURRENT_USER:
+      return action.value;
+    default:
+      return state;
+  }
+};
+
+const reducerTodo = (state: any = [], action: any) => {
+  switch (action.type) {
+    case ACTIONS.SET_ARRTODO:
+      return action.value;
+    default:
+      return state;
+  }
+};
+
+const reducerNewTodo = (state = '', action: any) => {
+  switch (action.type) {
+    case ACTIONS.SET_NEW_TODO:
+      return action.value;
+    default:
+      return state;
+  }
+};
+
+const reducerNewHeader = (state = '', action: any) => {
+  switch (action.type) {
+    case ACTIONS.SET_NEW_HEADER:
+      return action.value;
+    default:
+      return state;
+  }
+};
+
+const reducerNewDate = (state = moment(), action: any) => {
+  switch (action.type) {
+    case ACTIONS.SET_NEW_DATE:
       return action.value;
     default:
       return state;
@@ -61,5 +97,9 @@ export const rootReducer = combineReducers({
   month: reducerMonth,
   date: reducerDate,
   value: reducerValue,
-  arrtodo: reducerTodo
+  arrtodo: reducerTodo,
+  currentUser: reducerCurrentUser,
+  newTodo: reducerNewTodo,
+  header: reducerNewHeader,
+  newDate: reducerNewDate
 });

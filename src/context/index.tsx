@@ -1,27 +1,33 @@
 import { onAuthStateChanged, User } from 'firebase/auth';
-import React, { memo, useEffect, useState } from 'react';
-
+import { memo, useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { сurrentUserCreator } from '../store/actionCreators/сurrentUserCreator';
 import { auth, login, logout, signup } from '../firebase';
 import { LoginContext } from './context';
 import { IProviderProps } from './types';
 
 function LoginProviderComponent({ children }: IProviderProps) {
+  const dispatch = useDispatch();
+  const state = useSelector((state: any) => state);
+  const setCurrentUser = useCallback(
+    (e: any) => {
+      dispatch(сurrentUserCreator(e));
+    },
+    [dispatch]
+  );
+
   const useAuth = () => {
-    const [currentUser, setCurrentUser] = useState<User | null | undefined>(
-      null
-    );
-    useEffect(() => {
-      const unsub = onAuthStateChanged(auth, (user: User | null) => {
-        setCurrentUser(user);
-      });
-      return unsub;
-    }, []);
-    return currentUser;
+    return state.currentUser;
   };
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (user: User | null) => {
+      setCurrentUser(user);
+    });
+    return unsub;
+  }, [setCurrentUser]);
 
   const handleLogin = async (email: string, password: string) => {
     try {
-      console.log(email, password);
       await login(email, password);
     } catch (e) {
       alert('Invalid data');

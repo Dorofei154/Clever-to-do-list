@@ -39,7 +39,7 @@ export function NewtodoComponent({
           <Input
             id="headertodo"
             value={newHeader}
-            defaultValue={newHeader}
+            defaultValue={changeInfo ? changeInfo[0].data.header : ''}
             onChange={changeInput}
           />
         </Form.Item>
@@ -57,7 +57,7 @@ export function NewtodoComponent({
             showCount
             id="inToDo"
             value={newTodo}
-            defaultValue={newTodo}
+            defaultValue={changeInfo ? changeInfo[0].data.res : ''}
             onChange={changeInput}
             maxLength={100}
           />
@@ -77,7 +77,9 @@ export function NewtodoComponent({
             defaultValue={
               changeInfo
                 ? moment(
-                    `2021-${changeInfo[0]['data']['month']}-${changeInfo[0]['data']['date']}`
+                    `2021-${Number(changeInfo[0]['data']['month']) + 1}-${
+                      changeInfo[0]['data']['date']
+                    }`
                   )
                 : undefined
             }
